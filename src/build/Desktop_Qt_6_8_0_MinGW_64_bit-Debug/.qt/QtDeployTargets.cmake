@@ -1,0 +1,3 @@
+set(__QT_DEPLOY_TARGET_2024-JCO-The-Legend-of-Chiup-Chiup-ALE_FILE C:/Users/MEYNALE/Documents/2024-JCO-The-Legend-of-Chiup-Chiup-ALE/src/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/2024-JCO-The-Legend-of-Chiup-Chiup-ALE.exe)
+set(__QT_DEPLOY_TARGET_2024-JCO-The-Legend-of-Chiup-Chiup-ALE_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_2024-JCO-The-Legend-of-Chiup-Chiup-ALE_RUNTIME_DLLS C:/QtCreator/6.8.0/mingw_64/bin/Qt6Multimedia.dll;C:/QtCreator/6.8.0/mingw_64/bin/Qt6SvgWidgets.dll;C:/QtCreator/6.8.0/mingw_64/bin/Qt6Network.dll;C:/QtCreator/6.8.0/mingw_64/bin/Qt6Widgets.dll;C:/QtCreator/6.8.0/mingw_64/bin/Qt6Svg.dll;C:/QtCreator/6.8.0/mingw_64/bin/Qt6Gui.dll;C:/QtCreator/6.8.0/mingw_64/bin/Qt6Core.dll)
