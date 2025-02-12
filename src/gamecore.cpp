@@ -121,22 +121,37 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
 //! \brief GameCore::canMoveTo
 //! \param x
 //! \param y
-//! \return
+//! \return le type de tiles sur lesquels le joueur peut marcher
 //!
 bool GameCore::canMoveTo(qreal x, qreal y) {
-    int tileX = static_cast<int>(x) / TILE_SIZE;
-    int tileY = static_cast<int>(y) / TILE_SIZE;
 
-    // Vérifie si la position est valide sur la carte
-    if (tileX < 0 || tileX >= MAP_WIDTH || tileY < 0 || tileY >= MAP_HEIGHT) {
-        return false;
+    int tileX[4] = {
+        static_cast<int>(x) / TILE_SIZE,                // Coin haut-gauche
+        static_cast<int>(x + TILE_SIZE - 1) / TILE_SIZE, // Coin haut-droit
+        static_cast<int>(x) / TILE_SIZE,                // Coin bas-gauche
+        static_cast<int>(x + TILE_SIZE - 1) / TILE_SIZE // Coin bas-droit
+    };
+
+    int tileY[4] = {
+        static_cast<int>(y) / TILE_SIZE,                // Coin haut-gauche
+        static_cast<int>(y) / TILE_SIZE,                // Coin haut-droit
+        static_cast<int>(y + TILE_SIZE - 1) / TILE_SIZE, // Coin bas-gauche
+        static_cast<int>(y + TILE_SIZE - 1) / TILE_SIZE // Coin bas-droit
+    };
+
+    for (int i = 0; i < 4; i++) {
+        if (tileX[i] < 0 || tileX[i] >= MAP_WIDTH || tileY[i] < 0 || tileY[i] >= MAP_HEIGHT) {
+            return false;
+        }
+        int tileType = m_map[tileY[i]][tileX[i]];
+        if (!(tileType == 0 || tileType == 3 || tileType == 5 || tileType == 6)) {
+            return false;  // Collision détectée, déplacement interdit
+        }
     }
 
-    // Vérifie si la tuile est marchable
-    int tileType = m_map[tileY][tileX];
-    // Seulement les tiles 0, 3, 5, 6 sont accessibles
-    return (tileType == 0 || tileType == 3 || tileType == 5 || tileType == 6);
+    return true; // Pas de collision, on peut avancer
 }
+
 
 void GameCore::keyPressed(int key) {
     switch (key)  {
@@ -166,7 +181,7 @@ void GameCore::mouseButtonReleased(QPointF mousePosition, Qt::MouseButtons butto
 
 //!
 //! \brief GameCore::loadMap
-//!
+//! parcourt la map et les images correspondantes pour chaque tuile
 void GameCore::loadMap() {
     for (int y = 0; y < MAP_HEIGHT; y++) {
         for (int x = 0; x < MAP_WIDTH; x++) {
