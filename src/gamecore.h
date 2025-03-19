@@ -51,6 +51,10 @@ private:
     GameScene* m_pScene = nullptr;
     Sprite* m_pChiup = nullptr;
 
+    Sprite* m_pNpc;  // NPC en tant que sprite
+    QStringList m_npcDialog;  // Liste des dialogues de l'NPC
+    int m_dialogIndex = 0;  // Pour savoir où on en est dans le dialogue
+
     int m_ChiupDirection = 0;
 
     bool canMoveTo(qreal x, qreal y) const;

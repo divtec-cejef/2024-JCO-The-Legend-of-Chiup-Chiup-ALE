@@ -70,6 +70,16 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     // sinon le temps passé jusqu'au premier tick (ElapsedTime) peut être élevé et provoquer de gros
     // déplacements, surtout si le déboggueur est démarré.
     m_pGameCanvas->startTick();
+
+    // Création de l'NPC
+    m_pNpc = new Sprite(GameFramework::imagesPath() + "brickbreaker/E.png");
+    m_pNpc->setPos(500, 500);
+    m_pScene->addSpriteToScene(m_pNpc);
+
+    // Définit les dialogues de l'NPC
+    m_npcDialog << "E: Bonjour, comment ça va Chiup Chiup ?"
+                << "E: Tu veux m'aider pour une quete ?"
+                << "E: J'y arriverai pas seul...";
 }
 
 //! Destructeur de GameCore : efface les scènes
@@ -124,34 +134,24 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
 //! \return le type de tiles sur lesquels le joueur peut marcher
 //!
 bool GameCore::canMoveTo(qreal x, qreal y) {
+    int tileX = static_cast<int>(x + TILE_SIZE / 2) / TILE_SIZE;
+    int tileY = static_cast<int>(y + TILE_SIZE / 2) / TILE_SIZE;
 
-    int tileX[4] = {
-        static_cast<int>(x) / TILE_SIZE,                // Coin haut-gauche
-        static_cast<int>(x + TILE_SIZE - 1) / TILE_SIZE, // Coin haut-droit
-        static_cast<int>(x) / TILE_SIZE,                // Coin bas-gauche
-        static_cast<int>(x + TILE_SIZE - 1) / TILE_SIZE // Coin bas-droit
-    };
+    qDebug() << "Checking move to (" << x << "," << y << ")";
+    qDebug() << "Corresponding tile: (" << tileX << "," << tileY << ") -> Type:" << m_map[tileY][tileX];
 
-    int tileY[4] = {
-        static_cast<int>(y) / TILE_SIZE,                // Coin haut-gauche
-        static_cast<int>(y) / TILE_SIZE,                // Coin haut-droit
-        static_cast<int>(y + TILE_SIZE - 1) / TILE_SIZE, // Coin bas-gauche
-        static_cast<int>(y + TILE_SIZE - 1) / TILE_SIZE // Coin bas-droit
-    };
-
-    for (int i = 0; i < 4; i++) {
-        if (tileX[i] < 0 || tileX[i] >= MAP_WIDTH || tileY[i] < 0 || tileY[i] >= MAP_HEIGHT) {
-            return false;
-        }
-        int tileType = m_map[tileY[i]][tileX[i]];
-        if (!(tileType == 0 || tileType == 3 || tileType == 5 || tileType == 6)) {
-            return false;  // Collision détectée, déplacement interdit
-        }
+    if (tileX < 0 || tileX >= MAP_WIDTH || tileY < 0 || tileY >= MAP_HEIGHT) {
+        qDebug() << "Out of bounds!";
+        return false;
     }
 
-    return true; // Pas de collision, on peut avancer
-}
+    int tileType = m_map[tileY][tileX];
 
+    bool canMove = (tileType == 0 || tileType == 3 || tileType == 5 || tileType == 6);
+    qDebug() << "Can move? " << canMove;
+
+    return canMove;
+}
 
 void GameCore::keyPressed(int key) {
     switch (key)  {
@@ -159,6 +159,21 @@ void GameCore::keyPressed(int key) {
     case Qt::Key_Down:  m_keyDownPressed    = true; break;
     case Qt::Key_Right: m_keyRightPressed   = true; break;
     case Qt::Key_Left:  m_keyLeftPressed    = true; break;
+    case Qt::Key_E: {
+        // Vérifier la distance entre le joueur et l'NPC
+        qreal dist = QLineF(m_pChiup->pos(), m_pNpc->pos()).length();
+        if (dist < 100) {
+            //affiche un dialogue du NPC et permet de passer à un suivant
+            if (m_dialogIndex < m_npcDialog.size()) {
+                qDebug() << "E: " << m_npcDialog[m_dialogIndex];
+                m_dialogIndex++;
+            } else {
+                qDebug() << "E: d'accord a plus tard !";
+                m_dialogIndex = 0;
+                }
+            }
+            break;
+        }
     }
 }
 
