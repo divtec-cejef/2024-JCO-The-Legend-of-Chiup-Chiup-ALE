@@ -17,7 +17,7 @@
 #include "utilities.h"
 #include "sprite.h"
 
-const int SCENE_WIDTH = 2560;
+const int SCENE_WIDTH = 3500;
 const int SCENE_HEIGHT = 720;
 const int CHIUP_SPEED = 500; // vitesse de déplacement de la raquette, en pixels/s
 
@@ -73,13 +73,13 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
 
     // Création de l'NPC
     m_pNpc = new Sprite(GameFramework::imagesPath() + "brickbreaker/E.png");
-    m_pNpc->setPos(500, 500);
+    m_pNpc->setPos(900, 1200);
     m_pScene->addSpriteToScene(m_pNpc);
 
     // Définit les dialogues de l'NPC
     m_npcDialog << "E: Bonjour, comment ça va Chiup Chiup ?"
                 << "E: Tu veux m'aider pour une quete ?"
-                << "E: J'y arriverai pas seul...";
+                << "E: En echange je t'aide pour retrouver la princesse";
 }
 
 //! Destructeur de GameCore : efface les scènes
@@ -125,7 +125,6 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
     // Centre la caméra sur le personnage
     m_pScene->centerViewOn(m_pChiup);
 }
-
 
 //!
 //! \brief GameCore::canMoveTo
