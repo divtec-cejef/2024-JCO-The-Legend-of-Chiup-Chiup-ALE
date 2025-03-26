@@ -18,7 +18,7 @@
 #include "sprite.h"
 
 const int SCENE_WIDTH = 3500;
-const int SCENE_HEIGHT = 720;
+const int SCENE_HEIGHT = 1000;
 const int CHIUP_SPEED = 500; // vitesse de déplacement de la raquette, en pixels/s
 
 //! Initialise le contrôleur de jeu.
@@ -45,6 +45,9 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
 
     // Charge la carte avec les tiles
     loadMap();
+
+    //nitialiser un point de spawn par défaut
+    m_spawnPoint = QPointF(2 * TILE_SIZE, 2 * TILE_SIZE);
     
     // Instancier et initialiser les sprite ici :
     Sprite* pSprite = new Sprite(GameFramework::imagesPath() + "tutorial/player_m1.png");
@@ -216,6 +219,19 @@ void GameCore::loadMap() {
             tile->setPos(x * TILE_SIZE, y * TILE_SIZE);
             m_pScene->addSpriteToScene(tile);
         }
+    }
+}
+
+void GameCore::setSpawnPoint(int x, int y) {
+
+    // Vérifie si la case est valide (sol libre)
+    if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT && m_map[y][x] == 0)
+    {
+        m_spawnPoint = QPointF(x * TILE_SIZE, y * TILE_SIZE);
+    }
+    else
+    {
+        qWarning() << "Position de spawn invalide";
     }
 }
 
