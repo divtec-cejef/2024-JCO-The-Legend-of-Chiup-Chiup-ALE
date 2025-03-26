@@ -29,6 +29,9 @@ public:
     explicit GameCore(GameCanvas* pGameCanvas, QObject *parent = nullptr);
     ~GameCore() override;
 
+    //Déclarez la fonction canHitMonster
+    bool canHitMonster();
+
     void keyPressed(int key);
     void keyReleased(int key);
 
@@ -53,6 +56,7 @@ private:
     GameCanvas* m_pGameCanvas = nullptr;
     GameScene* m_pScene = nullptr;
     Sprite* m_pChiup = nullptr;
+    Sprite* m_pMonster = nullptr;
 
     //dialogue du NPC
     Sprite* m_pNpc;
@@ -70,6 +74,8 @@ private:
     bool m_keyDownPressed = false;
     bool m_keyLeftPressed = false;
     bool m_keyRightPressed = false;
+
+    const int ATTACK_RANGE = 50;
 
     static const int TILE_SIZE = 96;  // Taille d'une tuile en pixels
     static const int MAP_WIDTH = 37;  // Largeur de la carte en tiles

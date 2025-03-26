@@ -19,7 +19,8 @@
 
 const int SCENE_WIDTH = 3500;
 const int SCENE_HEIGHT = 1000;
-const int CHIUP_SPEED = 500; // vitesse de déplacement de la raquette, en pixels/s
+const int CHIUP_SPEED = 500;
+const int ATTACK_RANGE = 50;
 
 //! Initialise le contrôleur de jeu.
 //! \param pGameCanvas  GameCanvas pour lequel cet objet travaille.
@@ -61,6 +62,15 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     pChiup->startAnimation(200);
 
     m_pChiup = pChiup;
+
+    //Création du monstre
+    Sprite* pMonster = new Sprite(GameFramework::imagesPath() + "brickbreaker/Snake1.gif");
+    pMonster->setPos(1000, 1000);
+    pMonster->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Snake2.png");
+    pMonster->startAnimation(200);
+    m_pScene->addSpriteToScene(pMonster);
+
+    m_pMonster = pMonster;
 
     // Initialisation des états des touches
     m_keyUpPressed = false;
@@ -155,13 +165,32 @@ bool GameCore::canMoveTo(qreal x, qreal y) {
     return canMove;
 }
 
+//!
+//! \brief GameCore::canHitMonster
+//! \return
+//!
+bool GameCore::canHitMonster() {
+    qreal dist = QLineF(m_pChiup->pos(), m_pMonster->pos()).length();
+    return dist <= ATTACK_RANGE;
+}
+
 void GameCore::keyPressed(int key) {
     switch (key)  {
     case Qt::Key_Up:    m_keyUpPressed      = true; break;
     case Qt::Key_Down:  m_keyDownPressed    = true; break;
     case Qt::Key_Right: m_keyRightPressed   = true; break;
     case Qt::Key_Left:  m_keyLeftPressed    = true; break;
-    case Qt::Key_E: {
+    case Qt::Key_Space: {
+        if (canHitMonster()) {
+            qDebug() << "Vous avez frappé le monstre!";
+            // Réduire la vie du monstre ou supprimer le monstre
+            m_pScene->removeSpriteFromScene(m_pMonster);
+            delete m_pMonster;
+            m_pMonster = nullptr;
+        }
+        break;
+    }
+    case Qt::Key_J: {
         // Vérifier la distance entre le joueur et l'NPC
         qreal dist = QLineF(m_pChiup->pos(), m_pNpc->pos()).length();
         if (dist < 100) {
@@ -172,10 +201,10 @@ void GameCore::keyPressed(int key) {
             } else {
                 qDebug() << "E: d'accord a plus tard !";
                 m_dialogIndex = 0;
-                }
             }
-            break;
         }
+        break;
+    }
     }
 }
 
