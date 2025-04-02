@@ -13,6 +13,8 @@
 #include <QVector>
 #include <QDebug>
 
+#include <QTimer>
+
 
 class GameCanvas;
 class GameScene;
@@ -41,8 +43,14 @@ public:
 
     void tick(long long elapsedTimeInMilliseconds);
 
+    //Initialiser la santé du monstre
+    void initializeMonsterHealth(int initialHealth);
+
     //définir le point de spawn
     void setSpawnPoint(int x, int y);
+
+    //Applique les dégat au monstre
+    void takeDamage(int damage);
 
 signals:
     void notifyMouseMoved(QPointF newMousePosition);
@@ -58,10 +66,39 @@ private:
     Sprite* m_pChiup = nullptr;
     Sprite* m_pMonster = nullptr;
 
+    int m_monsterHealth;
+
+    //Timer pour la mort du monstre
+    QTimer* m_deathTimer;
+    void onMonsterDeath();
+
+    //Timer pour faire réaparaitre le monstre après un certains temps
+    QTimer* m_respawnTimer;
+
+    int m_health = 3;
+    void takeDamage();
+
+    // Liste des coeurs et mise à jour de l'affichage
+    std::vector<QGraphicsPixmapItem*> m_hearts;
+    void updateHearts();
+
+    void checkMonsterCollision();
+    void initHearts();
+
+    // Barre de vie
+    QGraphicsRectItem* m_healthBarBackground;
+    QGraphicsRectItem* m_healthBar;
+
+    void updateHealthBar();
+    void respawnMonster();
+
+    void updateDialogueBubble(const QString& text);
+
     //dialogue du NPC
     Sprite* m_pNpc;
     QStringList m_npcDialog;
     int m_dialogIndex = 0;
+    QGraphicsTextItem* m_pDialogueBubble;
 
     //point de spawn du joueur
     QPointF m_spawnPoint;
