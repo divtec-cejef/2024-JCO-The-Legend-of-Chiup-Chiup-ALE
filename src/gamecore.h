@@ -65,12 +65,14 @@ private:
     GameScene* m_pScene = nullptr;
     Sprite* m_pChiup = nullptr;
     Sprite* m_pMonster = nullptr;
+    Sprite* m_pSnake = nullptr;
 
     int m_monsterHealth;
 
     //Timer pour la mort du monstre
     QTimer* m_deathTimer;
     void onMonsterDeath();
+    void onSnakeDeath();
 
     //Timer pour faire réaparaitre le monstre après un certains temps
     QTimer* m_respawnTimer;
@@ -79,15 +81,19 @@ private:
     void takeDamage();
 
     // Liste des coeurs et mise à jour de l'affichage
-    std::vector<QGraphicsPixmapItem*> m_hearts;
+    QVector<QGraphicsItem*> m_hearts;
     void updateHearts();
 
     void checkMonsterCollision();
-    void initHearts();
+
+    void monsterDistance();
 
     // Barre de vie
     QGraphicsRectItem* m_healthBarBackground;
     QGraphicsRectItem* m_healthBar;
+
+    int m_maxHealth = 100;
+    int m_currentHealth = 100;
 
     void updateHealthBar();
     void respawnMonster();
@@ -113,6 +119,7 @@ private:
     bool m_keyRightPressed = false;
 
     const int ATTACK_RANGE = 50;
+    const int MONSTER_DAMAGE = 10;
 
     static const int TILE_SIZE = 96;  // Taille d'une tuile en pixels
     static const int MAP_WIDTH = 37;  // Largeur de la carte en tiles

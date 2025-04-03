@@ -75,6 +75,18 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     m_pScene->addSpriteToScene(pMonster);
 
     m_pMonster = pMonster;
+    m_pSnake = pSnake;
+
+    // Barre de vie
+    m_healthBarBackground = new QGraphicsRectItem(0, 0, 100, 10);
+    m_healthBarBackground->setBrush(Qt::gray);
+    m_healthBarBackground->setPos(10, 10);
+    m_pScene->addItem(m_healthBarBackground);
+
+    m_healthBar = new QGraphicsRectItem(0, 0, 100, 10);
+    m_healthBar->setBrush(Qt::green);
+    m_healthBar->setPos(10, 10);
+    m_pScene->addItem(m_healthBar);
 
     // Création de la barre de vie
     m_healthBarBackground = new QGraphicsRectItem(0, 0, 100, 10);
@@ -169,6 +181,8 @@ void GameCore::onMonsterDeath() {
     m_respawnTimer->start(1200000);
 }
 
+
+
 //! Cadence.
 //! \param elapsedTimeInMilliseconds  Temps écoulé depuis le dernier appel.
 void GameCore::tick(long long elapsedTimeInMilliseconds) {
@@ -202,6 +216,11 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
 
     // Centre la caméra sur le personnage
     m_pScene->centerViewOn(m_pChiup);
+
+    // Vérifier si le joueur est en collision avec le monstre
+    checkMonsterCollision();
+
+    monsterDistance();
 }
 
 //!
@@ -239,32 +258,28 @@ bool GameCore::canHitMonster() {
     return dist <= ATTACK_RANGE;
 }
 
-void GameCore::takeDamage() {
-    m_health--;
-    if (m_health <= 0) {
-        qDebug() << "Game Over !";
-        // Ici, tu peux déclencher une animation de mort, arrêter le jeu, etc.
-    }
-}
-
 void GameCore::checkMonsterCollision() {
+    // Vérifier si le joueur est en collision avec le monstre
     if (m_pChiup->collidesWithItem(m_pMonster)) {
-        takeDamage();
     }
 }
 
-void GameCore::initHearts() {
-    for (int i = 0; i < m_health; i++) {
-        QGraphicsPixmapItem* heart = new QGraphicsPixmapItem(QPixmap(":/images/heart.png"));
-        heart->setPos(10 + i * 40, 10);
-        m_pScene->addItem(heart);
-        m_hearts.push_back(heart);
+void GameCore::takeDamage() {
+    m_health -= MONSTER_DAMAGE;
+    if (m_health <= 0) {
+        m_health = 0;
     }
+
+    // Effet de clignotement
+    m_pChiup->setOpacity(0.5);
+    QTimer::singleShot(200, this, [this]() { m_pChiup->setOpacity(1.0); });
 }
 
-void GameCore::updateHearts() {
-    for (size_t i = 0; i < m_hearts.size(); i++) {
-        m_hearts[i]->setVisible(i < m_health);
+void GameCore::monsterDistance() {
+    // Calcul de la distance entre le monstre et le joueur
+    qreal dist = QLineF(m_pMonster->pos(), m_pChiup->pos()).length();
+
+    if (dist < 100) {
     }
 }
 
@@ -276,15 +291,7 @@ void GameCore::keyPressed(int key) {
     case Qt::Key_Left:  m_keyLeftPressed    = true; break;
     case Qt::Key_Space: {
         if (canHitMonster()) {
-            qDebug() << "Vous avez frappé le monstre!";
-            m_monsterHealth -= 10;
-
-            if (m_monsterHealth <= 0) {
-                qDebug() << "Le monstre est mort!";
-                respawnMonster();
-            } else {
-                updateHealthBar();
-            }
+            takeDamage(10);
         }
         break;
     }
@@ -306,9 +313,18 @@ void GameCore::keyPressed(int key) {
 
 //! Mise à jour de la taille de la barre de vie
 void GameCore::updateHealthBar() {
-    // Mise à jour de la taille de la barre de vie
-    qreal healthPercentage = static_cast<qreal>(m_monsterHealth) / 100.0;
-    m_healthBar->setRect(0, 0, 100 * healthPercentage, 10);  // Ajuster la longueur de la barre
+    if (m_currentHealth < 0) m_currentHealth = 0;
+
+    float healthPercent = (float)m_currentHealth / m_maxHealth;
+    m_healthBar->setRect(0, 0, 100 * healthPercent, 10);
+
+    if (healthPercent > 0.5) {
+        m_healthBar->setBrush(Qt::green);
+    } else if (healthPercent > 0.2) {
+        m_healthBar->setBrush(Qt::yellow);
+    } else {
+        m_healthBar->setBrush(Qt::red);
+    }
 }
 
 //! Réinitialiser la position du monstre et la vie du monstre
