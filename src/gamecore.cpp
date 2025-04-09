@@ -75,7 +75,6 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     m_pScene->addSpriteToScene(pMonster);
 
     m_pMonster = pMonster;
-    m_pSnake = pSnake;
 
     // Barre de vie
     m_healthBarBackground = new QGraphicsRectItem(0, 0, 100, 10);
@@ -132,7 +131,39 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     m_pScene->addSpriteToScene(m_pNpc);
 
     // Définit les dialogues de l'NPC
-    m_npcDialog = {"Salut !", "Comment ça va ?", "Tu veux discuter ?" };
+    m_npcDialog << "Mh ? Oh un bonhomme rose... qu'est ce que je peux faire pour toi ?"
+                << "Tu veux aller battre Ganon pour sauver ta princesse ?"
+                << "*reflechis et te regarde de travers* mais ça va pas la tete ?"
+                << "Tu va jamais survivre avec la silouhette que t'as..."
+                << "Mais je pense que je peux t'aider... vas me tuer un certain nombre de serpents"
+                << "Et quand je te dirais que tu seras pret tu passeras a la suite.";
+
+    //création du texte pour indiquer l'action
+    m_pTalkHint = new QGraphicsTextItem("Appuie sur E pour parler");
+    m_pTalkHint->setDefaultTextColor(Qt::yellow);
+    m_pTalkHint->setFont(QFont("Arial", 10));
+    m_pTalkHint->setVisible(false);
+    m_pScene->addItem(m_pTalkHint);
+    m_pTalkHint->setPos(m_pNpc->pos().x(), m_pNpc->pos().y() - 30);
+
+    //création de la bulle de dialogue
+    m_pDialogueBubble = new QGraphicsTextItem();
+    m_pDialogueBubble->setPlainText("");
+    m_pDialogueBubble->setDefaultTextColor(Qt::black);
+    m_pDialogueBubble->setFont(QFont("Arial", 12));
+    m_pScene->addItem(m_pDialogueBubble);
+
+    //Créer un fond blanc derrière la bulle
+    m_pDialogueBackground = new QGraphicsRectItem();
+    m_pDialogueBackground->setBrush(Qt::white);
+    m_pDialogueBackground->setPen(Qt::NoPen);
+    m_pDialogueBackground->setZValue(m_pDialogueBubble->zValue() - 1);
+    m_pScene->addItem(m_pDialogueBackground);
+
+    // Position initiale de la bulle
+    m_pDialogueBubble->setVisible(false);
+    m_pDialogueBubble->setZValue(1000);
+    m_pDialogueBubble->setPos(m_pNpc->pos().x() - 50, m_pNpc->pos().y() - 60);
 }
 
 //! Destructeur de GameCore : efface les scènes
@@ -153,10 +184,39 @@ void GameCore::keyReleased(int key) {
 }
 
 void GameCore::updateDialogueBubble(const QString& text) {
-    if (m_pDialogueBubble) {
+    qDebug() << "text: " << text;
+    if (m_pDialogueBubble && m_pDialogueBackground) {
         m_pDialogueBubble->setPlainText(text);
+        m_pDialogueBubble->setVisible(true);
+
+        QRectF textRect = m_pDialogueBubble->boundingRect();
+        m_pDialogueBackground->setRect(textRect.adjusted(-10, -10, 10, 10));
+        m_pDialogueBackground->setPos(m_pDialogueBubble->pos());
+        m_pDialogueBackground->setVisible(true);
+    } else {
+        m_pDialogueBubble->setVisible(false);
+        m_pDialogueBackground->setVisible(false);
     }
 }
+
+void GameCore::npcDialogue()
+{
+    if (!m_pNpc || !m_pChiup)
+        return;
+
+    qreal distance = QLineF(m_pNpc->pos(), m_pChiup->pos()).length();
+    if (distance < 100)
+    {
+        if (m_dialogIndex < m_npcDialog.size()) {
+            updateDialogueBubble(m_npcDialog[m_dialogIndex]);
+            m_dialogIndex++;
+        } else {
+            updateDialogueBubble("");
+            m_dialogIndex = 0;
+        }
+    }
+}
+
 
 //!
 //! \brief GameCore::takeDamage
@@ -221,6 +281,13 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
     checkMonsterCollision();
 
     monsterDistance();
+
+    //Dialogue
+    if (QLineF(m_pChiup->pos(), m_pNpc->pos()).length() < 100) {
+        m_pTalkHint->setVisible(true);
+    } else {
+        m_pTalkHint->setVisible(false);
+    }
 }
 
 //!
@@ -237,14 +304,12 @@ bool GameCore::canMoveTo(qreal x, qreal y) {
     qDebug() << "Corresponding tile: (" << tileX << "," << tileY << ") -> Type:" << m_map[tileY][tileX];
 
     if (tileX < 0 || tileX >= MAP_WIDTH || tileY < 0 || tileY >= MAP_HEIGHT) {
-        qDebug() << "Out of bounds!";
         return false;
     }
 
     int tileType = m_map[tileY][tileX];
 
     bool canMove = (tileType == 0 || tileType == 3 || tileType == 5 || tileType == 6);
-    qDebug() << "Can move? " << canMove;
 
     return canMove;
 }
@@ -289,22 +354,10 @@ void GameCore::keyPressed(int key) {
     case Qt::Key_Down:  m_keyDownPressed    = true; break;
     case Qt::Key_Right: m_keyRightPressed   = true; break;
     case Qt::Key_Left:  m_keyLeftPressed    = true; break;
+    case Qt::Key_E:     npcDialogue();       break;
     case Qt::Key_Space: {
         if (canHitMonster()) {
             takeDamage(10);
-        }
-        break;
-    }
-    case Qt::Key_E: {
-        qreal dist = QLineF(m_pChiup->pos(), m_pNpc->pos()).length();
-        if (dist < 100) {
-            if (m_dialogIndex < m_npcDialog.size()) {
-                updateDialogueBubble(m_npcDialog[m_dialogIndex]);
-                m_dialogIndex++;
-            } else {
-                updateDialogueBubble("E: D'accord, à plus tard !");
-                m_dialogIndex = 0;
-            }
         }
         break;
     }

@@ -106,6 +106,11 @@ private:
     int m_dialogIndex = 0;
     QGraphicsTextItem* m_pDialogueBubble;
 
+    void npcDialogue();
+
+    QGraphicsTextItem* m_pTalkHint;
+    QGraphicsRectItem* m_pDialogueBackground = nullptr;
+
     //point de spawn du joueur
     QPointF m_spawnPoint;
 
