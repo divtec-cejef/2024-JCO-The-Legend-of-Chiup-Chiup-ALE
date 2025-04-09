@@ -98,6 +98,24 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     m_pScene->addItem(m_healthBar);
     m_healthBar->setPos(pMonster->pos().x(), pMonster->pos().y() - 20);
 
+    // Barre d'XP
+    m_xpBarBackground = new QGraphicsRectItem(0, 0, 100, 5);
+    m_xpBarBackground->setBrush(Qt::gray);
+    m_xpBarBackground->setPos(10, 25);
+    m_pScene->addItem(m_xpBarBackground);
+
+    m_xpBar = new QGraphicsRectItem(0, 0, 0, 5);
+    m_xpBar->setBrush(Qt::blue);
+    m_xpBar->setPos(10, 25);
+    m_pScene->addItem(m_xpBar);
+
+    // Texte de niveau
+    m_levelText = new QGraphicsTextItem(QString("Niv. %1").arg(m_level));
+    m_levelText->setDefaultTextColor(Qt::white);
+    m_levelText->setFont(QFont("Arial", 10, QFont::Bold));
+    m_levelText->setPos(120, 15);
+    m_pScene->addItem(m_levelText);
+
     // Initialisation du timer pour la disparition du monstre
     m_deathTimer = new QTimer(this);
     connect(m_deathTimer, &QTimer::timeout, this, &GameCore::onMonsterDeath);
@@ -217,7 +235,6 @@ void GameCore::npcDialogue()
     }
 }
 
-
 //!
 //! \brief GameCore::takeDamage
 //! \param damage
@@ -230,6 +247,33 @@ void GameCore::takeDamage(int damage) {
     }
 }
 
+void GameCore::winXp(int amount) {
+    m_xp += amount;
+
+    QGraphicsTextItem* xpText = new QGraphicsTextItem(QString("+%1 XP").arg(amount));
+    xpText->setDefaultTextColor(Qt::yellow);
+    xpText->setFont(QFont("Arial", 10, QFont::Bold));
+    xpText->setPos(m_pMonster->pos().x(), m_pMonster->pos().y() - 40);
+    m_pScene->addItem(xpText);
+
+    QTimer::singleShot(1000, this, [=]() { m_pScene->removeItem(xpText); delete xpText; });
+
+    while (m_xp >= m_xpToNextLevel) {
+        m_xp -= m_xpToNextLevel;
+        m_level++;
+        m_xpToNextLevel += 50;
+    }
+
+    updateXpBar();
+}
+
+void GameCore::updateXpBar() {
+    double ratio = static_cast<double>(m_xp) / m_xpToNextLevel;
+    m_xpBar->setRect(0, 0, 100 * ratio, 5);
+
+    m_levelText->setPlainText(QString("Niv. %1").arg(m_level));
+}
+
 //!
 //! \brief GameCore::onMonsterDeath
 //!
@@ -239,9 +283,9 @@ void GameCore::onMonsterDeath() {
     m_deathTimer->stop();
 
     m_respawnTimer->start(1200000);
+
+    winXp(5);
 }
-
-
 
 //! Cadence.
 //! \param elapsedTimeInMilliseconds  Temps écoulé depuis le dernier appel.
