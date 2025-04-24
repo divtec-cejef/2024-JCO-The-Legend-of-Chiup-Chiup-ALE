@@ -25,8 +25,8 @@ const int ATTACK_RANGE = 50;
 //! Initialise le contrôleur de jeu.
 //! \param pGameCanvas  GameCanvas pour lequel cet objet travaille.
 //! \param pParent      Pointeur sur le parent (afin d'obtenir une destruction automatique de cet objet).
-GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent), m_monsterHealth(100) {
-    
+GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent) {
+
     // Mémorise l'accès au canvas (qui gère le tick et l'affichage d'une scène)
     m_pGameCanvas = pGameCanvas;
     
@@ -74,7 +74,8 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     pMonster->startAnimation(200);
     m_pScene->addSpriteToScene(pMonster);
 
-    m_pMonster = pMonster;
+    Monster* monster = new Monster(pMonster, 100, 1, pMonster->pos());
+    m_monsters.append(monster);
 
     // Barre de vie
     m_healthBarBackground = new QGraphicsRectItem(0, 0, 100, 10);
@@ -182,6 +183,7 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     m_pDialogueBubble->setVisible(false);
     m_pDialogueBubble->setZValue(1000);
     m_pDialogueBubble->setPos(m_pNpc->pos().x() - 50, m_pNpc->pos().y() - 60);
+
 }
 
 //! Destructeur de GameCore : efface les scènes
@@ -240,23 +242,22 @@ void GameCore::npcDialogue()
 //! \param damage
 //!
 void GameCore::takeDamage(int damage) {
-    m_monsterHealth -= damage;
-    if (m_monsterHealth <= 0) {
-        m_monsterHealth = 0;
-        onMonsterDeath();
-    }
+    onMonsterDeath();
 }
 
-void GameCore::winXp(int amount) {
+void GameCore::winXp(int amount, QPointF pos) {
     m_xp += amount;
 
     QGraphicsTextItem* xpText = new QGraphicsTextItem(QString("+%1 XP").arg(amount));
     xpText->setDefaultTextColor(Qt::yellow);
     xpText->setFont(QFont("Arial", 10, QFont::Bold));
-    xpText->setPos(m_pMonster->pos().x(), m_pMonster->pos().y() - 40);
     m_pScene->addItem(xpText);
+    xpText->setPos(pos.x(), pos.y() - 40);
 
-    QTimer::singleShot(1000, this, [=]() { m_pScene->removeItem(xpText); delete xpText; });
+    QTimer::singleShot(1000, this, [=]() {
+        m_pScene->removeItem(xpText);
+        delete xpText;
+    });
 
     while (m_xp >= m_xpToNextLevel) {
         m_xp -= m_xpToNextLevel;
@@ -266,6 +267,7 @@ void GameCore::winXp(int amount) {
 
     updateXpBar();
 }
+
 
 void GameCore::updateXpBar() {
     double ratio = static_cast<double>(m_xp) / m_xpToNextLevel;
@@ -279,13 +281,18 @@ void GameCore::updateXpBar() {
 //!
 void GameCore::onMonsterDeath() {
     QPixmap deadPixmap(GameFramework::imagesPath() + "brickbreaker/DeadSnake.png");
-    m_pMonster->setPixmap(deadPixmap);
+
+    for (Monster* m : m_monsters) {
+        if (!m->alive) {
+            m->sprite->setPixmap(deadPixmap);
+            winXp(5, m->sprite->pos());
+        }
+    }
+
     m_deathTimer->stop();
-
-    m_respawnTimer->start(1200000);
-
-    winXp(5);
+    m_respawnTimer->start(20000);
 }
+
 
 //! Cadence.
 //! \param elapsedTimeInMilliseconds  Temps écoulé depuis le dernier appel.
@@ -311,12 +318,15 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
     }
 
     // Mise à jour la position de la barre de vie pour qu'elle suive le monstre
-    m_healthBar->setPos(m_pMonster->pos().x(), m_pMonster->pos().y() - 20);
-    m_healthBarBackground->setPos(m_pMonster->pos().x(), m_pMonster->pos().y() - 20);
+    for (Monster* m : m_monsters) {
+        if (!m->alive) continue;
 
-    // Ajuste la taille de la barre de vie en fonction de la santé du monstre
-    double healthPercentage = static_cast<double>(m_monsterHealth) / 100.0;
-    m_healthBar->setRect(0, 0, 100 * healthPercentage, 10);
+        double ratio = static_cast<double>(m->health) / m->maxHealth;
+
+        m_healthBar->setPos(m->sprite->pos().x(), m->sprite->pos().y() - 20);
+        m_healthBarBackground->setPos(m->sprite->pos().x(), m->sprite->pos().y() - 20);
+        m_healthBar->setRect(0, 0, 100 * ratio, 10);
+    }
 
     // Centre la caméra sur le personnage
     m_pScene->centerViewOn(m_pChiup);
@@ -363,13 +373,20 @@ bool GameCore::canMoveTo(qreal x, qreal y) {
 //! \return
 //!
 bool GameCore::canHitMonster() {
-    qreal dist = QLineF(m_pChiup->pos(), m_pMonster->pos()).length();
-    return dist <= ATTACK_RANGE;
+    for (Monster* m : m_monsters) {
+        if (m->alive && QLineF(m->sprite->pos(), m_pChiup->pos()).length() <= ATTACK_RANGE) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void GameCore::checkMonsterCollision() {
     // Vérifier si le joueur est en collision avec le monstre
-    if (m_pChiup->collidesWithItem(m_pMonster)) {
+    for (Monster* monster : m_monsters) {
+        if (monster->alive && m_pChiup->collidesWithItem(monster->sprite)) {
+            takeDamage();
+        }
     }
 }
 
@@ -385,12 +402,15 @@ void GameCore::takeDamage() {
 }
 
 void GameCore::monsterDistance() {
-    // Calcul de la distance entre le monstre et le joueur
-    qreal dist = QLineF(m_pMonster->pos(), m_pChiup->pos()).length();
+    for (Monster* m : m_monsters) {
+        if (!m || !m->alive) continue;
 
-    if (dist < 100) {
+        qreal dist = QLineF(m->sprite->pos(), m_pChiup->pos()).length();
+        if (dist < 100) {
+        }
     }
 }
+
 
 void GameCore::keyPressed(int key) {
     switch (key)  {
@@ -400,13 +420,20 @@ void GameCore::keyPressed(int key) {
     case Qt::Key_Left:  m_keyLeftPressed    = true; break;
     case Qt::Key_E:     npcDialogue();       break;
     case Qt::Key_Space: {
-        if (canHitMonster()) {
-            takeDamage(10);
+        for (Monster* m : m_monsters) {
+            if (m->alive && QLineF(m->sprite->pos(), m_pChiup->pos()).length() <= ATTACK_RANGE) {
+                m->health -= 10;
+                if (m->health <= 0) {
+                    m->alive = false;
+                    onMonsterDeath();
+                }
+                break;
+            }
         }
-        break;
     }
     }
 }
+
 
 //! Mise à jour de la taille de la barre de vie
 void GameCore::updateHealthBar() {
@@ -424,15 +451,33 @@ void GameCore::updateHealthBar() {
     }
 }
 
+void GameCore::spawnMonsters() {
+    QVector<QPointF> spawnPoints = { {1000, 1000}, {1200, 800}, {1400, 600} };
+
+    for (int i = 0; i < spawnPoints.size(); ++i) {
+        Sprite* s = new Sprite(GameFramework::imagesPath() + "brickbreaker/Snake1.gif");
+        s->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Snake2.png");
+        s->startAnimation(200);
+        s->setPos(spawnPoints[i]);
+        m_pScene->addSpriteToScene(s);
+
+        Monster* m = new Monster(s, 50 + i * 20, 1 + i, spawnPoints[i]);
+        m_monsters.append(m);
+    }
+}
+
 //! Réinitialiser la position du monstre et la vie du monstre
 void GameCore::respawnMonster() {
-    m_pMonster->setPixmap(GameFramework::imagesPath() + "brickbreaker/Snake1.png");
-    m_pMonster->setPos(900, 500);
-
-    m_monsterHealth = 100;
-
+    for (Monster* m : m_monsters) {
+        m->alive = true;
+        m->health = m->maxHealth;
+        m->sprite->setPixmap(QPixmap(GameFramework::imagesPath() + "brickbreaker/Snake1.gif"));
+        m->sprite->setPos(m->position);
+    }
     m_respawnTimer->stop();
 }
+
+
 
 //! La souris a été déplacée.
 //! Pour que cet événement soit pris en compte, la propriété MouseTracking de GameView

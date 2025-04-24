@@ -20,6 +20,18 @@ class GameCanvas;
 class GameScene;
 class Sprite;
 
+struct Monster {
+    Sprite* sprite;
+    int health;
+    int maxHealth;
+    int level;
+    QPointF position;
+    bool alive;
+
+    Monster(Sprite* s, int hp, int lvl, QPointF pos)
+        : sprite(s), health(hp), maxHealth(hp), level(lvl), position(pos), alive(true) {}
+};
+
 //! \brief Classe qui gère la logique du jeu.
 //!
 //! Dans son état actuel, cette classe crée une scène vide, délimite
@@ -64,10 +76,12 @@ private:
     GameCanvas* m_pGameCanvas = nullptr;
     GameScene* m_pScene = nullptr;
     Sprite* m_pChiup = nullptr;
-    Sprite* m_pMonster = nullptr;
     Sprite* m_pSnake = nullptr;
 
-    int m_monsterHealth;
+    QVector<Monster*> m_monsters;
+
+    void spawnMonsters();
+    Monster* getMonsterInRange();
 
     //Timer pour la mort du monstre
     QTimer* m_deathTimer;
@@ -100,6 +114,17 @@ private:
 
     void updateDialogueBubble(const QString& text);
 
+    //barre d'XP
+    int m_xp = 0;
+    int m_level = 1;
+    int m_xpToNextLevel = 100;
+    QGraphicsRectItem* m_xpBar;
+    QGraphicsRectItem* m_xpBarBackground;
+    QGraphicsTextItem* m_levelText;
+
+    void updateXpBar();
+    void winXp(int amount, QPointF pos);
+
     //dialogue du NPC
     Sprite* m_pNpc;
     QStringList m_npcDialog;
@@ -109,7 +134,7 @@ private:
     void npcDialogue();
 
     QGraphicsTextItem* m_pTalkHint;
-    QGraphicsRectItem* m_pDialogueBackground = nullptr;
+    QGraphicsRectItem* m_pDialogueBackground;
 
     //point de spawn du joueur
     QPointF m_spawnPoint;
