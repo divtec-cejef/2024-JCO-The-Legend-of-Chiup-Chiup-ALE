@@ -12,6 +12,8 @@
 #include <QGraphicsPixmapItem>
 #include <QVector>
 #include <QDebug>
+#include <QProgressBar>
+#include <QGraphicsProxyWidget>
 
 #include <QTimer>
 
@@ -83,16 +85,25 @@ private:
     void spawnMonsters();
     Monster* getMonsterInRange();
 
+    //Le boss
     Sprite* m_pBoss = nullptr;
     bool spawnBoss = false;
     void spawnFinalBoss();
 
     bool bossActive = false;
     const int BOSS_ATTACK_RANGE = 100;
-    const int BOSS_SPEED = 30;
+    const int BOSS_SPEED = 60;
 
     void moveBossToPlayer();
     void bossAttack();
+
+    QProgressBar* m_bossHealthBar = nullptr;
+    int m_bossMaxHealth = 100;
+    int m_bossCurrentHealth = 100;
+
+    // Barre de vie du boss
+    void updateBossHealthBar();
+    QGraphicsRectItem* m_healthBarBoss;
 
     //Timer pour la mort du monstre
     QTimer* m_deathTimer;

@@ -1,9 +1,13 @@
 2024-JCO-The-Legend-of-Chiup-Chiup-ALE_autogen/timestamp: \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QDebug \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QElapsedTimer \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QList \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QObject \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QPointF \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QPointer \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QRect \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QSize \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QSizeF \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QTime \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QTimer \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/QVector \
@@ -39,12 +43,17 @@
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcontainerinfo.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcontainertools_impl.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcontiguouscache.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcoreapplication.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcoreapplication_platform.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcoreevent.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qdarwinhelpers.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qdatastream.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qdatetime.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qdeadlinetimer.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qdebug.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qelapsedtimer.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qendian.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qeventloop.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qexceptionhandling.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qflags.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qfloat16.h \
@@ -56,6 +65,7 @@
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qglobalstatic.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qhash.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qhashfunctions.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qiodevice.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qiodevicebase.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qiterable.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qiterator.h \
@@ -72,6 +82,7 @@
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qmetatype.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qminmax.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qnamespace.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qnativeinterface.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qnumeric.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qobject.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qobject_impl.h \
@@ -128,6 +139,7 @@
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtversionchecks.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtypeinfo.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtypes.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qurl.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qutf8stringview.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qvariant.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qvarlengtharray.h \
@@ -136,16 +148,23 @@
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qxptype_traits.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtCore/qyieldcpu.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/QPixmap \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/QTransform \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qaction.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qbitmap.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qbrush.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qcolor.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qcursor.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qevent.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qeventpoint.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qfont.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qfontinfo.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qfontmetrics.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qguiapplication.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qicon.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qimage.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qinputdevice.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qinputmethod.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qkeysequence.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpaintdevice.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpainterpath.h \
@@ -153,21 +172,33 @@
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpen.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpixelformat.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpixmap.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpointingdevice.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpolygon.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qregion.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qrgb.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qrgba64.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qscreen.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qscreen_platform.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qtgui-config.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qtguiexports.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qtguiglobal.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qtransform.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qvector2d.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qvectornd.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qwindowdefs.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtGui/qwindowdefs_win.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
+	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/QGraphicsProxyWidget \
 	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/QGraphicsScene \
+	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/QProgressBar \
 	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/QWidget \
+	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qframe.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qgraphicslayoutitem.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qgraphicsproxywidget.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qgraphicsscene.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qgraphicswidget.h \
+	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qprogressbar.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qsizepolicy.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qtwidgets-config.h \
 	C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qtwidgetsexports.h \

@@ -154,8 +154,8 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
                 << "Tu veux aller battre Ganon pour sauver ta princesse ?"
                 << "*reflechis et te regarde de travers* mais ça va pas la tete ?"
                 << "Tu va jamais survivre avec la silouhette que t'as..."
-                << "Mais je pense que je peux t'aider... vas me tuer un certain nombre de serpents"
-                << "Et quand je te dirais que tu seras pret tu passeras a la suite.";
+                << "Mais je pense que je peux t'aider... vas me tuer un certain nombre de serpents."
+                << "Et tu reviens me voir quand tu te sentiras prete.";
 
     //création du texte pour indiquer l'action
     m_pTalkHint = new QGraphicsTextItem("Appuie sur E pour parler");
@@ -183,7 +183,6 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     m_pDialogueBubble->setVisible(false);
     m_pDialogueBubble->setZValue(1000);
     m_pDialogueBubble->setPos(m_pNpc->pos().x() - 50, m_pNpc->pos().y() - 60);
-
 }
 
 //! Destructeur de GameCore : efface les scènes
@@ -250,6 +249,17 @@ void GameCore::spawnFinalBoss() {
 
     m_pScene->addSpriteToScene(m_pBoss);
 
+    //barre de vie du boss
+    m_healthBarBackground = new QGraphicsRectItem(0, 0, 100, 10);
+    m_healthBarBackground->setBrush(Qt::gray);
+    m_healthBarBackground->setPos(m_pBoss->pos().x(), m_pBoss->pos().y() - 20);
+    m_pScene->addItem(m_healthBarBackground);
+
+    m_healthBarBoss = new QGraphicsRectItem(0, 0, 100, 10);
+    m_healthBarBoss->setBrush(Qt::red);
+    m_healthBarBoss->setPos(m_pBoss->pos().x(), m_pBoss->pos().y() - 20);
+    m_pScene->addItem(m_healthBarBoss);
+
     bossActive = true;
 }
 
@@ -289,8 +299,26 @@ void GameCore::bossAttack() {
     takeDamage(20);
 
     // Effet visuel
-    m_pChiup->setOpacity(0.5);
-    QTimer::singleShot(200, this, [this]() { m_pChiup->setOpacity(1.0); });
+    QPixmap originalPixmap = m_pChiup->pixmap();
+    QImage image = originalPixmap.toImage();
+
+    // Applique un filtre rouge sur l'image
+    for (int y = 0; y < image.height(); ++y) {
+        for (int x = 0; x < image.width(); ++x) {
+            QColor color = image.pixelColor(x, y);
+            color.setRed(255);
+            color.setGreen(0);
+            color.setBlue(0);
+            image.setPixelColor(x, y, color);
+        }
+    }
+
+    // Appliquer l'image modifiée au sprite
+    m_pChiup->setPixmap(QPixmap::fromImage(image));
+
+    QTimer::singleShot(200, this, [this, originalPixmap]() {
+        m_pChiup->setPixmap(originalPixmap);
+    });
 }
 
 
@@ -461,10 +489,28 @@ void GameCore::takeDamage() {
         m_health = 0;
     }
 
-    // Effet de clignotement
-    m_pChiup->setOpacity(0.5);
-    QTimer::singleShot(200, this, [this]() { m_pChiup->setOpacity(1.0); });
+    QPixmap originalPixmap = m_pChiup->pixmap();
+    QImage image = originalPixmap.toImage();
+
+    // Applique un filtre rouge sur l'image
+    for (int y = 0; y < image.height(); ++y) {
+        for (int x = 0; x < image.width(); ++x) {
+            QColor color = image.pixelColor(x, y);
+            color.setRed(255);
+            color.setGreen(0);
+            color.setBlue(0);
+            image.setPixelColor(x, y, color);
+        }
+    }
+
+    // Appliquer l'image modifiée au sprite
+    m_pChiup->setPixmap(QPixmap::fromImage(image));
+
+    QTimer::singleShot(200, this, [this, originalPixmap]() {
+        m_pChiup->setPixmap(originalPixmap);
+    });
 }
+
 
 void GameCore::monsterDistance() {
     for (Monster* m : m_monsters) {
