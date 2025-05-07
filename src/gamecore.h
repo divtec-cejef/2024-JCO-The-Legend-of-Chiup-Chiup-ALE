@@ -87,6 +87,13 @@ private:
     bool spawnBoss = false;
     void spawnFinalBoss();
 
+    bool bossActive = false;
+    const int BOSS_ATTACK_RANGE = 100;
+    const int BOSS_SPEED = 30;
+
+    void moveBossToPlayer();
+    void bossAttack();
+
     //Timer pour la mort du monstre
     QTimer* m_deathTimer;
     void onMonsterDeath();

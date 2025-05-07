@@ -250,7 +250,49 @@ void GameCore::spawnFinalBoss() {
 
     m_pScene->addSpriteToScene(m_pBoss);
 
+    bossActive = true;
 }
+
+void GameCore::moveBossToPlayer() {
+    if (!m_pBoss || !m_pChiup || !bossActive) return;
+
+    // Calcul de la distance entre boss et joueur
+    qreal distance = QLineF(m_pBoss->pos(), m_pChiup->pos()).length();
+
+    // Si joueur est trop loin -> on ne fait rien
+    if (distance > 500) return;
+
+    // Si joueur est dans la portée d'attaque -> boss attaque
+    if (distance < BOSS_ATTACK_RANGE) {
+        bossAttack();
+        return;
+    }
+
+    // Calcul vecteur de déplacement vers joueur
+    qreal dx = m_pChiup->pos().x() - m_pBoss->pos().x();
+    qreal dy = m_pChiup->pos().y() - m_pBoss->pos().y();
+    qreal length = sqrt(dx * dx + dy * dy);
+
+    if (length > 0) {
+        dx /= length;
+        dy /= length;
+    }
+
+    // Déplacement du boss vers joueur
+    QPointF newPosition = m_pBoss->pos() + QPointF(dx * BOSS_SPEED * 0.01, dy * BOSS_SPEED * 0.01);
+    m_pBoss->setPos(newPosition);
+}
+
+void GameCore::bossAttack() {
+
+    // Appliquer des dégâts au joueur
+    takeDamage(20);
+
+    // Effet visuel
+    m_pChiup->setOpacity(0.5);
+    QTimer::singleShot(200, this, [this]() { m_pChiup->setOpacity(1.0); });
+}
+
 
 //!
 //! \brief GameCore::takeDamage
@@ -362,6 +404,9 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
     } else {
         m_pTalkHint->setVisible(false);
     }
+
+    moveBossToPlayer();
+
 }
 
 //!
