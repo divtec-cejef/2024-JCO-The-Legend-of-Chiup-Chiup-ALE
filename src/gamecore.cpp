@@ -17,8 +17,8 @@
 #include "utilities.h"
 #include "sprite.h"
 
-const int SCENE_WIDTH = 3500;
-const int SCENE_HEIGHT = 1000;
+const int SCENE_WIDTH = 5500;
+const int SCENE_HEIGHT = 4000;
 const int CHIUP_SPEED = 500;
 const int ATTACK_RANGE = 50;
 
@@ -237,6 +237,21 @@ void GameCore::npcDialogue()
     }
 }
 
+void GameCore::spawnFinalBoss() {
+    m_pBoss = new Sprite(GameFramework::imagesPath() + "brickbreaker/Boss.png");
+    m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss2.png");
+    m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss3.png");
+    m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss4.png");
+    m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss5.png");
+    m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss6.png");
+    m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss8.png");
+    m_pBoss->startAnimation(300);
+    m_pBoss->setPos(2750, 400);
+
+    m_pScene->addSpriteToScene(m_pBoss);
+
+}
+
 //!
 //! \brief GameCore::takeDamage
 //! \param damage
@@ -263,6 +278,11 @@ void GameCore::winXp(int amount, QPointF pos) {
         m_xp -= m_xpToNextLevel;
         m_level++;
         m_xpToNextLevel += 50;
+
+        if (m_level == 2 && !spawnBoss) {
+            spawnFinalBoss();
+            spawnBoss = true;
+        }
     }
 
     updateXpBar();
@@ -285,12 +305,12 @@ void GameCore::onMonsterDeath() {
     for (Monster* m : m_monsters) {
         if (!m->alive) {
             m->sprite->setPixmap(deadPixmap);
-            winXp(5, m->sprite->pos());
+            winXp(100, m->sprite->pos());
         }
     }
 
     m_deathTimer->stop();
-    m_respawnTimer->start(20000);
+    m_respawnTimer->start(200);
 }
 
 

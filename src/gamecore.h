@@ -83,6 +83,10 @@ private:
     void spawnMonsters();
     Monster* getMonsterInRange();
 
+    Sprite* m_pBoss = nullptr;
+    bool spawnBoss = false;
+    void spawnFinalBoss();
+
     //Timer pour la mort du monstre
     QTimer* m_deathTimer;
     void onMonsterDeath();
