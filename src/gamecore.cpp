@@ -1,18 +1,20 @@
 /**
-  Fichier qui contient toute la logique du jeu.
-  
-  @author   JCO
-  @date     Février 2014
+  @author   Alexsandra Meynier
+  @date     Février - Mai 2025
  */
-#include "gamecore.h"
 
 #include <cmath>
+#include <cstdlib>
+#include <ctime>
 
+#include <QTime>
 #include <QDebug>
 #include <QSettings>
 
+#include "gamecore.h"
 #include "gamescene.h"
 #include "gamecanvas.h"
+
 #include "resources.h"
 #include "utilities.h"
 #include "sprite.h"
@@ -68,36 +70,7 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     connect(m_respawnTimer, &QTimer::timeout, this, &GameCore::respawnMonster);
 
     //Création du monstre
-    Sprite* pMonster = new Sprite(GameFramework::imagesPath() + "brickbreaker/Snake1.gif");
-    pMonster->setPos(1000, 1000);
-    pMonster->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Snake2.png");
-    pMonster->startAnimation(200);
-    m_pScene->addSpriteToScene(pMonster);
-
-    Monster* monster = new Monster(pMonster, 100, 1, pMonster->pos());
-    m_monsters.append(monster);
-
-    // Barre de vie
-    m_healthBarBackground = new QGraphicsRectItem(0, 0, 100, 10);
-    m_healthBarBackground->setBrush(Qt::gray);
-    m_healthBarBackground->setPos(10, 10);
-    m_pScene->addItem(m_healthBarBackground);
-
-    m_healthBar = new QGraphicsRectItem(0, 0, 100, 10);
-    m_healthBar->setBrush(Qt::green);
-    m_healthBar->setPos(10, 10);
-    m_pScene->addItem(m_healthBar);
-
-    // Création de la barre de vie
-    m_healthBarBackground = new QGraphicsRectItem(0, 0, 100, 10);
-    m_healthBarBackground->setBrush(Qt::gray);
-    m_pScene->addItem(m_healthBarBackground);
-    m_healthBarBackground->setPos(pMonster->pos().x(), pMonster->pos().y() - 20);
-
-    m_healthBar = new QGraphicsRectItem(0, 0, 100, 10);
-    m_healthBar->setBrush(Qt::red);
-    m_pScene->addItem(m_healthBar);
-    m_healthBar->setPos(pMonster->pos().x(), pMonster->pos().y() - 20);
+    spawnMonsters();
 
     // Barre d'XP
     m_xpBarBackground = new QGraphicsRectItem(0, 0, 100, 5);
@@ -321,6 +294,51 @@ void GameCore::bossAttack() {
     });
 }
 
+void GameCore::damageBoss(int amount) {
+    if (m_bossHealth <= 0) return;
+
+    m_bossHealth -= amount;
+
+    // Affichage debug
+    qDebug() << "Boss HP:" << m_bossHealth;
+
+    // Feedback visuel : clignotement rouge
+    QPixmap originalPixmap = m_pBoss->pixmap();
+    QImage image = originalPixmap.toImage().convertToFormat(QImage::Format_ARGB32);
+
+    for (int y = 0; y < image.height(); ++y) {
+        for (int x = 0; x < image.width(); ++x) {
+            QColor color = image.pixelColor(x, y);
+            if (color.alpha() > 0) {
+                color.setRed(255);
+                color.setGreen(50);
+                color.setBlue(50);
+                color.setAlpha(150);
+                image.setPixelColor(x, y, color);
+            }
+        }
+    }
+
+    m_pBoss->setPixmap(QPixmap::fromImage(image));
+    QTimer::singleShot(200, this, [=]() {
+        m_pBoss->setPixmap(originalPixmap);
+    });
+
+    // Si boss mort
+    if (m_bossHealth <= 0) {
+        bossDefeated();
+    }
+
+    if (m_healthBarBoss) {
+        double ratio = static_cast<double>(m_bossHealth) / m_bossMaxHealth;
+        if (ratio < 0) ratio = 0;
+        m_healthBarBoss->setRect(0, 0, 100 * ratio, 10);
+    }
+}
+
+void GameCore::bossDefeated() {
+    m_pBoss->hide();
+}
 
 //!
 //! \brief GameCore::takeDamage
@@ -333,28 +351,33 @@ void GameCore::takeDamage(int damage) {
 void GameCore::winXp(int amount, QPointF pos) {
     m_xp += amount;
 
+    // Affiche un texte temporaire pour l'XP
     QGraphicsTextItem* xpText = new QGraphicsTextItem(QString("+%1 XP").arg(amount));
     xpText->setDefaultTextColor(Qt::yellow);
     xpText->setFont(QFont("Arial", 10, QFont::Bold));
     m_pScene->addItem(xpText);
     xpText->setPos(pos.x(), pos.y() - 40);
 
+    // Supprime le texte après 1 seconde
     QTimer::singleShot(1000, this, [=]() {
         m_pScene->removeItem(xpText);
         delete xpText;
     });
 
+    // Vérifie si l'XP atteint un nouveau niveau
     while (m_xp >= m_xpToNextLevel) {
         m_xp -= m_xpToNextLevel;
         m_level++;
         m_xpToNextLevel += 50;
 
+        // Si le joueur atteint le niveau 2, on spawne le boss
         if (m_level == 2 && !spawnBoss) {
             spawnFinalBoss();
             spawnBoss = true;
         }
     }
 
+    // Met à jour la barre de XP
     updateXpBar();
 }
 
@@ -370,19 +393,26 @@ void GameCore::updateXpBar() {
 //! \brief GameCore::onMonsterDeath
 //!
 void GameCore::onMonsterDeath() {
+    // Remplace par un affichage de l'image du monstre mort.
     QPixmap deadPixmap(GameFramework::imagesPath() + "brickbreaker/DeadSnake.png");
 
+    // On parcourt tous les monstres
     for (Monster* m : m_monsters) {
         if (!m->alive) {
+            // Remplace le sprite du monstre par son image morte
             m->sprite->setPixmap(deadPixmap);
+
+            // Donne de l'XP au joueur
             winXp(100, m->sprite->pos());
+
+            // Supprime le monstre de la scène
+            m->sprite->hide();
         }
     }
 
+    // Arrête le timer de la mort et démarre le timer de respawn
     m_deathTimer->stop();
-    m_respawnTimer->start(200);
 }
-
 
 //! Cadence.
 //! \param elapsedTimeInMilliseconds  Temps écoulé depuis le dernier appel.
@@ -409,13 +439,21 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
 
     // Mise à jour la position de la barre de vie pour qu'elle suive le monstre
     for (Monster* m : m_monsters) {
-        if (!m->alive) continue;
+        if (!m->alive) {
+            if (m->healthBar) m->healthBar->hide();
+            if (m->healthBarBackground) m->healthBarBackground->hide();
+            continue;
+        }
 
         double ratio = static_cast<double>(m->health) / m->maxHealth;
 
-        m_healthBar->setPos(m->sprite->pos().x(), m->sprite->pos().y() - 20);
-        m_healthBarBackground->setPos(m->sprite->pos().x(), m->sprite->pos().y() - 20);
-        m_healthBar->setRect(0, 0, 100 * ratio, 10);
+        if (m->healthBar && m->healthBarBackground) {
+            m->healthBar->setRect(0, 0, 100 * ratio, 10);
+            m->healthBar->setPos(m->sprite->pos().x(), m->sprite->pos().y() - 20);
+            m->healthBarBackground->setPos(m->sprite->pos().x(), m->sprite->pos().y() - 20);
+            m->healthBar->show();
+            m->healthBarBackground->show();
+        }
     }
 
     // Centre la caméra sur le personnage
@@ -522,6 +560,50 @@ void GameCore::monsterDistance() {
     }
 }
 
+void GameCore::attackEnemies() {
+    const int DAMAGE = 20;
+    const qreal ATTACK_RANGE = 100.0;
+
+    for (auto& monster : m_monsters) {
+        if (monster->isAlive()) {
+            qreal distance = QLineF(m_pChiup->pos(), monster->position).length();
+            if (distance <= ATTACK_RANGE) {
+                monster->takeDamage(DAMAGE);
+                if (!monster->isAlive()) {
+                    monster->sprite->hide();
+                    if (monster->healthBar) monster->healthBar->hide();
+                    if (monster->healthBarBackground) monster->healthBarBackground->hide();
+
+                    winXp(5, monster->sprite->pos());
+
+                    Monster* m = monster;
+                    QTimer::singleShot(60000, this, [this, m]() {
+                        m->alive = true;
+                        m->health = m->maxHealth;
+
+                        // Réinitialise le sprite
+                        m->sprite->setPixmap(QPixmap(GameFramework::imagesPath() + "brickbreaker/Snake1.gif"));
+                        m->sprite->setPos(m->position);
+                        m->sprite->show();
+
+                        // Réactive sa barre de vie
+                        if (m->healthBar) m->healthBar->show();
+                        if (m->healthBarBackground) m->healthBarBackground->show();
+                    });
+                }
+            }
+        }
+    }
+
+    // Boss
+    if (bossActive && m_pBoss) {
+        qreal distance = QLineF(m_pChiup->pos(), m_pBoss->pos()).length();
+        if (distance <= ATTACK_RANGE) {
+            damageBoss(DAMAGE);
+        }
+    }
+}
+
 
 void GameCore::keyPressed(int key) {
     switch (key)  {
@@ -531,16 +613,8 @@ void GameCore::keyPressed(int key) {
     case Qt::Key_Left:  m_keyLeftPressed    = true; break;
     case Qt::Key_E:     npcDialogue();       break;
     case Qt::Key_Space: {
-        for (Monster* m : m_monsters) {
-            if (m->alive && QLineF(m->sprite->pos(), m_pChiup->pos()).length() <= ATTACK_RANGE) {
-                m->health -= 10;
-                if (m->health <= 0) {
-                    m->alive = false;
-                    onMonsterDeath();
-                }
-                break;
-            }
-        }
+        attackEnemies();
+        break;
     }
     }
 }
@@ -563,16 +637,40 @@ void GameCore::updateHealthBar() {
 }
 
 void GameCore::spawnMonsters() {
-    QVector<QPointF> spawnPoints = { {1000, 1000}, {1200, 800}, {1400, 600} };
+    srand(time(nullptr));
+    int nombreMonstres = 10;
 
-    for (int i = 0; i < spawnPoints.size(); ++i) {
+    for (int i = 0; i < nombreMonstres; ++i) {
+        int x, y;
+        do {
+            x = rand() % MAP_WIDTH;
+            y = rand() % MAP_HEIGHT;
+        } while (!(m_map[y][x] == 0 || m_map[y][x] == 3 || m_map[y][x] == 5 || m_map[y][x] == 6));
+
+        QPointF pos(x * TILE_SIZE, y * TILE_SIZE);
+
+        // Crée le sprite du serpent
         Sprite* s = new Sprite(GameFramework::imagesPath() + "brickbreaker/Snake1.gif");
         s->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Snake2.png");
         s->startAnimation(200);
-        s->setPos(spawnPoints[i]);
+        s->setPos(pos);
         m_pScene->addSpriteToScene(s);
 
-        Monster* m = new Monster(s, 50 + i * 20, 1 + i, spawnPoints[i]);
+        // Crée la barre de vie
+        QGraphicsRectItem* bg = new QGraphicsRectItem(0, 0, 100, 10);
+        bg->setBrush(Qt::gray);
+        bg->setZValue(1);
+        m_pScene->addItem(bg);
+
+        QGraphicsRectItem* bar = new QGraphicsRectItem(0, 0, 100, 10);
+        bar->setBrush(Qt::red);
+        bar->setZValue(2);
+        m_pScene->addItem(bar);
+
+        // Crée le monstre
+        Monster* m = new Monster(s, 100, 1, pos);
+        m->healthBar = bar;
+        m->healthBarBackground = bg;
         m_monsters.append(m);
     }
 }
