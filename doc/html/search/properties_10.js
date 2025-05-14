@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['reachability_0',['reachability',['https://doc.qt.io/qt-6/qnetworkinformation.html#reachability-prop',1,'QNetworkInformation']]],
+  ['readonly_1',['readOnly',['https://doc.qt.io/qt-6/qfilesystemmodel.html#readOnly-prop',1,'QFileSystemModel::readOnly'],['https://doc.qt.io/qt-6/qabstractspinbox.html#readOnly-prop',1,'QAbstractSpinBox::readOnly'],['https://doc.qt.io/qt-6/qlineedit.html#readOnly-prop',1,'QLineEdit::readOnly'],['https://doc.qt.io/qt-6/qplaintextedit.html#readOnly-prop',1,'QPlainTextEdit::readOnly'],['https://doc.qt.io/qt-6/qtextbrowser.html#readOnly-prop',1,'QTextBrowser::readOnly'],['https://doc.qt.io/qt-6/qtextedit.html#readOnly-prop',1,'QTextEdit::readOnly']]],
+  ['rect_2',['rect',['https://doc.qt.io/qt-6/qwidget.html#rect-prop',1,'QWidget']]],
+  ['recursivefilteringenabled_3',['recursiveFilteringEnabled',['https://doc.qt.io/qt-6/qsortfilterproxymodel.html#recursiveFilteringEnabled-prop',1,'QSortFilterProxyModel']]],
+  ['redoavailable_4',['redoAvailable',['https://doc.qt.io/qt-6/qlineedit.html#redoAvailable-prop',1,'QLineEdit']]],
+  ['redotext_5',['redoText',['https://doc.qt.io/qt-6/qundostack.html#redoText-prop',1,'QUndoStack']]],
+  ['refreshrate_6',['refreshRate',['https://doc.qt.io/qt-6/qscreen.html#refreshRate-prop',1,'QScreen']]],
+  ['regularexpression_7',['regularExpression',['https://doc.qt.io/qt-6/qregularexpressionvalidator.html#regularExpression-prop',1,'QRegularExpressionValidator']]],
+  ['remainingtime_8',['remainingTime',['https://doc.qt.io/qt-6/qtimer.html#remainingTime-prop',1,'QTimer']]],
+  ['renderhints_9',['renderHints',['https://doc.qt.io/qt-6/qgraphicsview.html#renderHints-prop',1,'QGraphicsView']]],
+  ['resizeanchor_10',['resizeAnchor',['https://doc.qt.io/qt-6/qgraphicsview.html#resizeAnchor-prop',1,'QGraphicsView']]],
+  ['resizegripsvisible_11',['resizeGripsVisible',['https://doc.qt.io/qt-6/qcolumnview.html#resizeGripsVisible-prop',1,'QColumnView']]],
+  ['resizemode_12',['resizeMode',['https://doc.qt.io/qt-6/qlistview.html#resizeMode-prop',1,'QListView']]],
+  ['resolution_13',['resolution',['https://doc.qt.io/qt-6/qsvggenerator.html#resolution-prop',1,'QSvgGenerator']]],
+  ['resolvesymlinks_14',['resolveSymlinks',['https://doc.qt.io/qt-6/qfilesystemmodel.html#resolveSymlinks-prop',1,'QFileSystemModel']]],
+  ['rootisdecorated_15',['rootIsDecorated',['https://doc.qt.io/qt-6/qtreeview.html#rootIsDecorated-prop',1,'QTreeView']]],
+  ['rotation_16',['rotation',['https://doc.qt.io/qt-6/qeventpoint.html#rotation-prop',1,'QEventPoint::rotation'],['https://doc.qt.io/qt-6/qgraphicsobject.html#rotation-prop',1,'QGraphicsObject::rotation'],['../class_sprite.html#a7f38d12295ac36f937fc00953499de86',1,'Sprite::rotation']]],
+  ['rotationangle_17',['rotationAngle',['https://doc.qt.io/qt-6/qpinchgesture.html#rotationAngle-prop',1,'QPinchGesture']]],
+  ['rowcount_18',['rowCount',['https://doc.qt.io/qt-6/qtablewidget.html#rowCount-prop',1,'QTableWidget']]],
+  ['rowwrappolicy_19',['rowWrapPolicy',['https://doc.qt.io/qt-6/qformlayout.html#rowWrapPolicy-prop',1,'QFormLayout']]],
+  ['rubberbandselectionmode_20',['rubberBandSelectionMode',['https://doc.qt.io/qt-6/qgraphicsview.html#rubberBandSelectionMode-prop',1,'QGraphicsView']]]
+];

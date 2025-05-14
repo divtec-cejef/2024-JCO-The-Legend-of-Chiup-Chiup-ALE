@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['quitlockenabled_0',['quitLockEnabled',['https://doc.qt.io/qt-6/qcoreapplication.html#quitLockEnabled-prop',1,'QCoreApplication']]],
+  ['quitonlastwindowclosed_1',['quitOnLastWindowClosed',['https://doc.qt.io/qt-6/qguiapplication.html#quitOnLastWindowClosed-prop',1,'QGuiApplication']]]
+];

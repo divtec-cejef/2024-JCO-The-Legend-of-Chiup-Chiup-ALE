@@ -24,11 +24,11 @@ const int SCENE_HEIGHT = 4000;
 
 const int CHIUP_SPEED = 500;
 const int ATTACK_RANGE = 50;
-const int XP_SERPENT = 100;
+const int XP_SERPENT = 5;
 
-//! Initialise le contrôleur de jeu.
-//! \param pGameCanvas  GameCanvas pour lequel cet objet travaille.
-//! \param pParent      Pointeur sur le parent (afin d'obtenir une destruction automatique de cet objet).
+//! \brief Constructeur de GameCore.
+//! \param pGameCanvas Canvas du jeu.
+//! \param pParent Objet parent Qt.
 GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent) {
 
     // Mémorise l'accès au canvas (qui gère le tick et l'affichage d'une scène)
@@ -160,14 +160,15 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     m_pDialogueBubble->setPos(m_pNpc->pos().x() - 50, m_pNpc->pos().y() - 60);
 }
 
-//! Destructeur de GameCore : efface les scènes
+//! \brief Destructeur de GameCore : libère la mémoire de la scène.
 GameCore::~GameCore() {
     delete m_pScene;
     m_pScene = nullptr;
 }
 
 //! Traite le relâchement d'une touche.
-//! \param key Numéro de la touche (voir les constantes Qt)
+//! \brief Gère le relâchement d'une touche clavier.
+//! \param key Code de la touche relâchée.
 void GameCore::keyReleased(int key) {
     switch (key) {
     case Qt::Key_Up:    m_keyUpPressed      = false; break;
@@ -177,6 +178,8 @@ void GameCore::keyReleased(int key) {
     }
 }
 
+//! \brief Met à jour le contenu de la bulle de dialogue.
+//! \param text Texte à afficher.
 void GameCore::updateDialogueBubble(const QString& text) {
     qDebug() << "text: " << text;
     if (m_pDialogueBubble && m_pDialogueBackground) {
@@ -193,6 +196,7 @@ void GameCore::updateDialogueBubble(const QString& text) {
     }
 }
 
+//! \brief Gère le déroulement du dialogue avec le NPC.
 void GameCore::npcDialogue()
 {
     if (!m_pNpc || !m_pChiup)
@@ -211,6 +215,7 @@ void GameCore::npcDialogue()
     }
 }
 
+//! \brief Fait apparaître le boss final et sa barre de vie.
 void GameCore::spawnFinalBoss() {
     m_pBoss = new Sprite(GameFramework::imagesPath() + "brickbreaker/Boss.png");
     m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss2.png");
@@ -233,6 +238,7 @@ void GameCore::spawnFinalBoss() {
     bossActive = true;
 }
 
+//! \brief Déplace le boss vers le joueur s'il est actif.
 void GameCore::moveBossToPlayer() {
     if (!m_pBoss || !m_pChiup || !bossActive) return;
 
@@ -263,6 +269,7 @@ void GameCore::moveBossToPlayer() {
     m_pBoss->setPos(newPosition);
 }
 
+//! \brief Le boss attaque le joueur, inflige des dégâts et effet visuel.
 void GameCore::bossAttack() {
 
     // Appliquer des dégâts au joueur
@@ -291,6 +298,8 @@ void GameCore::bossAttack() {
     });
 }
 
+//! \brief Inflige des dégâts au boss et vérifie sa défaite.
+//! \param amount Quantité de dégâts à infliger.
 void GameCore::damageBoss(int amount) {
     if (m_bossHealth <= 0) return;
 
@@ -333,6 +342,7 @@ void GameCore::damageBoss(int amount) {
     }
 }
 
+//! \brief Gère la défaite du boss et l'apparition de la princesse.
 void GameCore::bossDefeated() {
     if (!m_pBoss) return;
 
@@ -346,16 +356,22 @@ void GameCore::bossDefeated() {
     m_pPrincess->startAnimation(500);
     m_pPrincess->setPos(bossPos);
     m_pScene->addSpriteToScene(m_pPrincess);
+
+    // Dialogues de la princesse
+    m_princessDialog << "Merci de m'avoir sauvée..."
+                     << "Tu es mon héros !"
+                     << "J'espère qu'on pourra vivre en paix maintenant...";
 }
 
-//!
-//! \brief GameCore::takeDamage
-//! \param damage
-//!
+//! \brief Inflige des dégâts au joueur (appelé par le boss).
+//! \param damage Montant des dégâts.
 void GameCore::takeDamage(int damage) {
     onMonsterDeath();
 }
 
+//! \brief Gère le gain d'XP et le niveau du joueur.
+//! \param amount Montant d'XP gagné.
+//! \param param pos Position à laquelle afficher le texte XP.
 void GameCore::winXp(int amount, QPointF pos) {
     m_xp += amount;
 
@@ -389,7 +405,7 @@ void GameCore::winXp(int amount, QPointF pos) {
     updateXpBar();
 }
 
-
+//! \brief brief Met à jour la barre d'expérience.
 void GameCore::updateXpBar() {
     double ratio = static_cast<double>(m_xp) / m_xpToNextLevel;
     m_xpBar->setRect(0, 0, 100 * ratio, 5);
@@ -397,9 +413,7 @@ void GameCore::updateXpBar() {
     m_levelText->setPlainText(QString("Niv. %1").arg(m_level));
 }
 
-//!
-//! \brief GameCore::onMonsterDeath
-//!
+//! \brief Gère la mort des monstres et les récompenses.
 void GameCore::onMonsterDeath() {
     // Remplace par un affichage de l'image du monstre mort.
     QPixmap deadPixmap(GameFramework::imagesPath() + "brickbreaker/DeadSnake.png");
@@ -422,8 +436,8 @@ void GameCore::onMonsterDeath() {
     m_deathTimer->stop();
 }
 
-//! Cadence.
-//! \param elapsedTimeInMilliseconds  Temps écoulé depuis le dernier appel.
+//! \brief Tick du jeu appelé régulièrement pour animer et contrôler la logique.
+//! \param elapsedTimeInMilliseconds Temps écoulé depuis le dernier tick.
 void GameCore::tick(long long elapsedTimeInMilliseconds) {
     // Calcul du déplacement en fonction des touches pressées
     qreal deltaX = 0;
@@ -484,7 +498,10 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
     if (m_pPrincess) {
         qreal distance = QLineF(m_pPrincess->pos(), m_pChiup->pos()).length();
 
-        if (distance > 50) {
+        const qreal MIN_DISTANCE = 40.0;
+        const qreal MAX_DISTANCE = 200.0;
+
+        if (distance > MIN_DISTANCE && distance < MAX_DISTANCE) {
             qreal dx = m_pChiup->pos().x() - m_pPrincess->pos().x();
             qreal dy = m_pChiup->pos().y() - m_pPrincess->pos().y();
             qreal len = sqrt(dx*dx + dy*dy);
@@ -492,8 +509,8 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
                 dx /= len;
                 dy /= len;
 
-                QPointF move(dx * 300 * elapsedTimeInMilliseconds / 1000.0,
-                             dy * 300 * elapsedTimeInMilliseconds / 1000.0);
+                QPointF move(dx * 200 * elapsedTimeInMilliseconds / 1000.0,
+                             dy * 200 * elapsedTimeInMilliseconds / 1000.0);
                 m_pPrincess->setPos(m_pPrincess->pos() + move);
             }
         }
@@ -501,12 +518,10 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
 
 }
 
-//!
-//! \brief GameCore::canMoveTo
-//! \param x
-//! \param y
-//! \return le type de tiles sur lesquels le joueur peut marcher
-//!
+//! \brief Vérifie si le joueur peut se déplacer à une position.
+//! \param x Position X.
+//! \param y Position Y.
+//! \return true si déplacement possible.
 bool GameCore::canMoveTo(qreal x, qreal y) {
     int tileX = static_cast<int>(x + TILE_SIZE / 2) / TILE_SIZE;
     int tileY = static_cast<int>(y + TILE_SIZE / 2) / TILE_SIZE;
@@ -525,10 +540,8 @@ bool GameCore::canMoveTo(qreal x, qreal y) {
     return canMove;
 }
 
-//!
-//! \brief GameCore::canHitMonster
-//! \return
-//!
+//! \brief Vérifie si un monstre est à portée d'attaque.
+//! \return true si un monstre peut être touché.
 bool GameCore::canHitMonster() {
     for (Monster* m : m_monsters) {
         if (m->alive && QLineF(m->sprite->pos(), m_pChiup->pos()).length() <= ATTACK_RANGE) {
@@ -538,6 +551,7 @@ bool GameCore::canHitMonster() {
     return false;
 }
 
+//! \brief Détecte les collisions entre le joueur et les monstres.
 void GameCore::checkMonsterCollision() {
     // Vérifier si le joueur est en collision avec le monstre
     for (Monster* monster : m_monsters) {
@@ -547,6 +561,7 @@ void GameCore::checkMonsterCollision() {
     }
 }
 
+//! \brief brief Inflige des dégâts au joueur quand un monstre l'atteint.
 void GameCore::takeDamage() {
     m_health -= MONSTER_DAMAGE;
     if (m_health <= 0) {
@@ -575,7 +590,7 @@ void GameCore::takeDamage() {
     });
 }
 
-
+//! \brief Calcule la distance entre le joueur et les monstres.
 void GameCore::monsterDistance() {
     for (Monster* m : m_monsters) {
         if (!m || !m->alive) continue;
@@ -586,8 +601,9 @@ void GameCore::monsterDistance() {
     }
 }
 
+//! \brief Attaque les ennemis à portée et inflige des dégâts.
 void GameCore::attackEnemies() {
-    const int DAMAGE = 20;
+    const int DAMAGE = 5;
     const qreal ATTACK_RANGE = 100.0;
 
     for (auto& monster : m_monsters) {
@@ -630,7 +646,8 @@ void GameCore::attackEnemies() {
     }
 }
 
-
+//! \brief Gère l'appui d'une touche du clavier.
+//! \param key Code Qt de la touche.
 void GameCore::keyPressed(int key) {
     switch (key)  {
     case Qt::Key_Up:    m_keyUpPressed      = true; break;
@@ -645,8 +662,7 @@ void GameCore::keyPressed(int key) {
     }
 }
 
-
-//! Mise à jour de la taille de la barre de vie
+//! \brief Met à jour la barre de vie du joueur.
 void GameCore::updateHealthBar() {
     if (m_currentHealth < 0) m_currentHealth = 0;
 
@@ -662,6 +678,7 @@ void GameCore::updateHealthBar() {
     }
 }
 
+//! \brief Gère l'apparition aléatoire des monstres sur la carte.
 void GameCore::spawnMonsters() {
     srand(time(nullptr));
     int nombreMonstres = 15;
@@ -701,7 +718,7 @@ void GameCore::spawnMonsters() {
     }
 }
 
-//! Réinitialiser la position du monstre et la vie du monstre
+//! \brief Fait réapparaître les monstres morts.
 void GameCore::respawnMonster() {
     for (Monster* m : m_monsters) {
         m->alive = true;
@@ -711,8 +728,6 @@ void GameCore::respawnMonster() {
     }
     m_respawnTimer->stop();
 }
-
-
 
 //! La souris a été déplacée.
 //! Pour que cet événement soit pris en compte, la propriété MouseTracking de GameView
@@ -731,9 +746,7 @@ void GameCore::mouseButtonReleased(QPointF mousePosition, Qt::MouseButtons butto
     emit notifyMouseButtonReleased(mousePosition, buttons);
 }
 
-//!
-//! \brief GameCore::loadMap
-//! parcourt la map et les images correspondantes pour chaque tuile
+//! \brief Charge et affiche la carte de jeu à partir du tableau m_map.
 void GameCore::loadMap() {
     for (int y = 0; y < MAP_HEIGHT; y++) {
         for (int x = 0; x < MAP_WIDTH; x++) {
@@ -770,6 +783,9 @@ void GameCore::loadMap() {
     }
 }
 
+//! \brief Définit la position de réapparition du joueur.
+//! \param x
+//! \param y
 void GameCore::setSpawnPoint(int x, int y) {
 
     // Vérifie si la case est valide (sol libre)

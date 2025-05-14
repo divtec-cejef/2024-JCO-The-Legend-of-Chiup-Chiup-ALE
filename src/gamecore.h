@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe GameCore.
-  \author   JCO
-  \date     septembre 2018
+  \author   Alexsandra meynier
+  \date     Février - mai 2025
 */
 #define GAMECORE_H
 
@@ -22,6 +22,8 @@ class GameCanvas;
 class GameScene;
 class Sprite;
 
+//! \struct Monster
+//! \brief Représente un monstre dans le jeu.
 struct Monster {
     Sprite* sprite;
     int health;
@@ -32,9 +34,17 @@ struct Monster {
     QGraphicsRectItem* healthBar;
     QGraphicsRectItem* healthBarBackground;
 
+
+    //! \brief Constructeur.
+    //! \param s Sprite du monstre.
+    //! \param hp Santé initiale.
+    //! \param lvl Niveau du monstre.
+    //! \param pos Position de spawn.
     Monster(Sprite* s, int hp, int lvl, QPointF pos)
         : sprite(s), health(hp), maxHealth(hp), level(lvl), position(pos), alive(true) {}
 
+    //! \brief Inflige des dégâts au monstre.
+    //! \param damage Quantité de dégâts.
     void takeDamage(int damage) {
         if (alive) {
             health -= damage;
@@ -45,6 +55,8 @@ struct Monster {
         }
     }
 
+    //! \brief Vérifie si le monstre est vivant.
+    //! \return true si vivant, sinon false.
     bool isAlive() const {
         return alive;
     }
@@ -117,6 +129,9 @@ private:
 
     // Princesse
     Sprite* m_pPrincess = nullptr;
+    QStringList m_princessDialog;
+    int m_princessDialogIndex = 0;
+    void princessDialogue();
 
     QProgressBar* m_bossHealthBar = nullptr;
     int m_bossMaxHealth = 100;
