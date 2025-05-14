@@ -15,10 +15,6 @@
 #include "gamescene.h"
 #include "gamecanvas.h"
 
-#include <QMediaPlayer>
-#include <QVideoWidget>
-#include <QMediaPlaylist>
-
 #include "resources.h"
 #include "utilities.h"
 #include "sprite.h"
@@ -338,7 +334,18 @@ void GameCore::damageBoss(int amount) {
 }
 
 void GameCore::bossDefeated() {
+    if (!m_pBoss) return;
+
+    QPointF bossPos = m_pBoss->pos();
     m_pBoss->hide();
+    bossActive = false;
+
+    // Fait apparaître la princesse à l'endroit du boss
+    m_pPrincess = new Sprite(GameFramework::imagesPath() + "brickbreaker/Princess.png");
+    m_pPrincess->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Princess2.png");
+    m_pPrincess->startAnimation(500);
+    m_pPrincess->setPos(bossPos);
+    m_pScene->addSpriteToScene(m_pPrincess);
 }
 
 //!
@@ -473,6 +480,24 @@ void GameCore::tick(long long elapsedTimeInMilliseconds) {
     }
 
     moveBossToPlayer();
+
+    if (m_pPrincess) {
+        qreal distance = QLineF(m_pPrincess->pos(), m_pChiup->pos()).length();
+
+        if (distance > 50) {
+            qreal dx = m_pChiup->pos().x() - m_pPrincess->pos().x();
+            qreal dy = m_pChiup->pos().y() - m_pPrincess->pos().y();
+            qreal len = sqrt(dx*dx + dy*dy);
+            if (len > 0) {
+                dx /= len;
+                dy /= len;
+
+                QPointF move(dx * 300 * elapsedTimeInMilliseconds / 1000.0,
+                             dy * 300 * elapsedTimeInMilliseconds / 1000.0);
+                m_pPrincess->setPos(m_pPrincess->pos() + move);
+            }
+        }
+    }
 
 }
 

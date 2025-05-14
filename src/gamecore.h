@@ -115,6 +115,8 @@ private:
 
     void attackEnemies();
 
+    // Princesse
+    Sprite* m_pPrincess = nullptr;
 
     QProgressBar* m_bossHealthBar = nullptr;
     int m_bossMaxHealth = 100;
