@@ -15,14 +15,20 @@
 #include "gamescene.h"
 #include "gamecanvas.h"
 
+#include <QMediaPlayer>
+#include <QVideoWidget>
+#include <QMediaPlaylist>
+
 #include "resources.h"
 #include "utilities.h"
 #include "sprite.h"
 
-const int SCENE_WIDTH = 5500;
+const int SCENE_WIDTH = 5800;
 const int SCENE_HEIGHT = 4000;
+
 const int CHIUP_SPEED = 500;
 const int ATTACK_RANGE = 50;
+const int XP_SERPENT = 100;
 
 //! Initialise le contrôleur de jeu.
 //! \param pGameCanvas  GameCanvas pour lequel cet objet travaille.
@@ -212,11 +218,6 @@ void GameCore::npcDialogue()
 void GameCore::spawnFinalBoss() {
     m_pBoss = new Sprite(GameFramework::imagesPath() + "brickbreaker/Boss.png");
     m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss2.png");
-    m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss3.png");
-    m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss4.png");
-    m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss5.png");
-    m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss6.png");
-    m_pBoss->addAnimationFrame(GameFramework::imagesPath() + "brickbreaker/Boss8.png");
     m_pBoss->startAnimation(300);
     m_pBoss->setPos(2750, 400);
 
@@ -574,7 +575,7 @@ void GameCore::attackEnemies() {
                     if (monster->healthBar) monster->healthBar->hide();
                     if (monster->healthBarBackground) monster->healthBarBackground->hide();
 
-                    winXp(5, monster->sprite->pos());
+                    winXp(XP_SERPENT, monster->sprite->pos());
 
                     Monster* m = monster;
                     QTimer::singleShot(60000, this, [this, m]() {
@@ -638,7 +639,7 @@ void GameCore::updateHealthBar() {
 
 void GameCore::spawnMonsters() {
     srand(time(nullptr));
-    int nombreMonstres = 10;
+    int nombreMonstres = 15;
 
     for (int i = 0; i < nombreMonstres; ++i) {
         int x, y;
@@ -721,6 +722,19 @@ void GameCore::loadMap() {
             case 4: tileImage = "brickbreaker/water.png"; break;
             case 5: tileImage = "brickbreaker/sand.jpg"; break;
             case 6: tileImage = "brickbreaker/dalle.png"; break;
+            case 7: tileImage = "brickbreaker/MapEndLeft.png"; break;
+            case 8: tileImage = "brickbreaker/MapEndUp.png"; break;
+            case 9: tileImage = "brickbreaker/MapEndRight.png"; break;
+            case 10: tileImage = "brickbreaker/MapEndDown.png"; break;
+            case 11: tileImage = "brickbreaker/CornerUL.png"; break;
+            case 12: tileImage = "brickbreaker/CornerUR.png"; break;
+            case 13: tileImage = "brickbreaker/CornerDL.png"; break;
+            case 14: tileImage = "brickbreaker/CornerDR.png"; break;
+            case 15: tileImage = "brickbreaker/EndMapWater.png"; break;
+            case 16: tileImage = "brickbreaker/CornerDalle.png"; break;
+            case 17: tileImage = "brickbreaker/MapEndLeftDalle.png"; break;
+            case 18: tileImage = "brickbreaker/MapEndDownDalle.png"; break;
+            case 19: tileImage = "brickbreaker/MapEndUpDalle.png"; break;
             default: tileImage = "brickbreaker/grass.png"; break;
             }
 
