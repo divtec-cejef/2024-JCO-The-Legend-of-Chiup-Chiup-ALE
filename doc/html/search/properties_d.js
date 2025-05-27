@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['objectname_0',['objectName',['https://doc.qt.io/qt-6/qobject.html#objectName-prop',1,'QObject']]],
+  ['offset_1',['offset',['https://doc.qt.io/qt-6/qgraphicsdropshadoweffect.html#offset-prop',1,'QGraphicsDropShadowEffect::offset'],['https://doc.qt.io/qt-6/qpangesture.html#offset-prop',1,'QPanGesture::offset']]],
+  ['okbuttontext_2',['okButtonText',['https://doc.qt.io/qt-6/qinputdialog.html#okButtonText-prop',1,'QInputDialog']]],
+  ['opacity_3',['opacity',['https://doc.qt.io/qt-6/qwindow.html#opacity-prop',1,'QWindow::opacity'],['https://doc.qt.io/qt-6/qgraphicsobject.html#opacity-prop',1,'QGraphicsObject::opacity'],['https://doc.qt.io/qt-6/qgraphicsopacityeffect.html#opacity-prop',1,'QGraphicsOpacityEffect::opacity'],['../class_sprite.html#a13d277baaddb57974a086145ce02d44c',1,'Sprite::opacity']]],
+  ['opacitymask_4',['opacityMask',['https://doc.qt.io/qt-6/qgraphicsopacityeffect.html#opacityMask-prop',1,'QGraphicsOpacityEffect']]],
+  ['opaqueresize_5',['opaqueResize',['https://doc.qt.io/qt-6/qsplitter.html#opaqueResize-prop',1,'QSplitter']]],
+  ['openexternallinks_6',['openExternalLinks',['https://doc.qt.io/qt-6/qgraphicstextitem.html#openExternalLinks-prop',1,'QGraphicsTextItem::openExternalLinks'],['https://doc.qt.io/qt-6/qlabel.html#openExternalLinks-prop',1,'QLabel::openExternalLinks'],['https://doc.qt.io/qt-6/qtextbrowser.html#openExternalLinks-prop',1,'QTextBrowser::openExternalLinks']]],
+  ['openlinks_7',['openLinks',['https://doc.qt.io/qt-6/qtextbrowser.html#openLinks-prop',1,'QTextBrowser']]],
+  ['optimizationflags_8',['optimizationFlags',['https://doc.qt.io/qt-6/qgraphicsview.html#optimizationFlags-prop',1,'QGraphicsView']]],
+  ['options_9',['options',['https://doc.qt.io/qt-6/qfilesystemmodel.html#options-prop',1,'QFileSystemModel::options'],['https://doc.qt.io/qt-6/qcolordialog.html#options-prop',1,'QColorDialog::options'],['https://doc.qt.io/qt-6/qfiledialog.html#options-prop',1,'QFileDialog::options'],['https://doc.qt.io/qt-6/qfontdialog.html#options-prop',1,'QFontDialog::options'],['https://doc.qt.io/qt-6/qinputdialog.html#options-prop',1,'QInputDialog::options'],['https://doc.qt.io/qt-6/qwizard.html#options-prop',1,'QWizard::options']]],
+  ['organizationdomain_10',['organizationDomain',['https://doc.qt.io/qt-6/qcoreapplication.html#organizationDomain-prop',1,'QCoreApplication']]],
+  ['organizationname_11',['organizationName',['https://doc.qt.io/qt-6/qcoreapplication.html#organizationName-prop',1,'QCoreApplication']]],
+  ['orientation_12',['orientation',['https://doc.qt.io/qt-6/qscreen.html#orientation-prop',1,'QScreen::orientation'],['https://doc.qt.io/qt-6/qabstractslider.html#orientation-prop',1,'QAbstractSlider::orientation'],['https://doc.qt.io/qt-6/qdatawidgetmapper.html#orientation-prop',1,'QDataWidgetMapper::orientation'],['https://doc.qt.io/qt-6/qdialogbuttonbox.html#orientation-prop',1,'QDialogButtonBox::orientation'],['https://doc.qt.io/qt-6/qprogressbar.html#orientation-prop',1,'QProgressBar::orientation'],['https://doc.qt.io/qt-6/qsplitter.html#orientation-prop',1,'QSplitter::orientation'],['https://doc.qt.io/qt-6/qtoolbar.html#orientation-prop',1,'QToolBar::orientation']]],
+  ['origin_13',['origin',['https://doc.qt.io/qt-6/qgraphicsrotation.html#origin-prop',1,'QGraphicsRotation::origin'],['https://doc.qt.io/qt-6/qgraphicsscale.html#origin-prop',1,'QGraphicsScale::origin']]],
+  ['outputdevice_14',['outputDevice',['https://doc.qt.io/qt-6/qsvggenerator.html#outputDevice-prop',1,'QSvgGenerator']]],
+  ['overwritemode_15',['overwriteMode',['https://doc.qt.io/qt-6/qplaintextedit.html#overwriteMode-prop',1,'QPlainTextEdit::overwriteMode'],['https://doc.qt.io/qt-6/qtextedit.html#overwriteMode-prop',1,'QTextEdit::overwriteMode']]]
+];

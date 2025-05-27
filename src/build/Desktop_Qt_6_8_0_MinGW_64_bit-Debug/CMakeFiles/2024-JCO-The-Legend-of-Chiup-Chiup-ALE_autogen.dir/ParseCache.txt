@@ -336,8 +336,13 @@ C:/Users/MEYNALE/Documents/2024-JCO-The-Legend-of-Chiup-Chiup-ALE/src/gamecanvas
 C:/Users/MEYNALE/Documents/2024-JCO-The-Legend-of-Chiup-Chiup-ALE/src/gamecore.h
  mmc:Q_OBJECT
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/QDebug
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/QList
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/QObject
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/QPointF
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/QRect
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/QSize
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/QSizeF
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/QTimer
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/QVector
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/q20functional.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/q20iterator.h
@@ -353,6 +358,7 @@ C:/Users/MEYNALE/Documents/2024-JCO-The-Legend-of-Chiup-Chiup-ALE/src/gamecore.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qatomic.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qatomic_cxx11.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qbasicatomic.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qbasictimer.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qbindingstorage.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qbytearray.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qbytearrayalgorithms.h
@@ -369,10 +375,16 @@ C:/Users/MEYNALE/Documents/2024-JCO-The-Legend-of-Chiup-Chiup-ALE/src/gamecore.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcontainerinfo.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcontainertools_impl.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcontiguouscache.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcoreapplication.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcoreapplication_platform.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qcoreevent.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qdarwinhelpers.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qdatastream.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qdeadlinetimer.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qdebug.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qelapsedtimer.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qendian.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qeventloop.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qexceptionhandling.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qflags.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qfloat16.h
@@ -384,12 +396,14 @@ C:/Users/MEYNALE/Documents/2024-JCO-The-Legend-of-Chiup-Chiup-ALE/src/gamecore.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qglobalstatic.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qhash.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qhashfunctions.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qiodevice.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qiodevicebase.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qiterable.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qiterator.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qlatin1stringview.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qline.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qlist.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qlocale.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qlogging.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qmalloc.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qmap.h
@@ -399,6 +413,7 @@ C:/Users/MEYNALE/Documents/2024-JCO-The-Legend-of-Chiup-Chiup-ALE/src/gamecore.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qmetatype.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qminmax.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qnamespace.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qnativeinterface.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qnumeric.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qobject.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qobject_impl.h
@@ -443,6 +458,7 @@ C:/Users/MEYNALE/Documents/2024-JCO-The-Legend-of-Chiup-Chiup-ALE/src/gamecore.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtdeprecationmarkers.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtenvironmentvariables.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtextstream.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtimer.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtmetamacros.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtnoop.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtpreprocessorsupport.h
@@ -453,6 +469,7 @@ C:/Users/MEYNALE/Documents/2024-JCO-The-Legend-of-Chiup-Chiup-ALE/src/gamecore.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtversionchecks.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtypeinfo.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qtypes.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qurl.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qutf8stringview.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qvariant.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qvarlengtharray.h
@@ -460,32 +477,61 @@ C:/Users/MEYNALE/Documents/2024-JCO-The-Legend-of-Chiup-Chiup-ALE/src/gamecore.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qversiontagging.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qxptype_traits.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtCore/qyieldcpu.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/QTransform
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qaction.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qbitmap.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qbrush.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qcolor.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qcursor.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qevent.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qeventpoint.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qfont.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qfontinfo.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qfontmetrics.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qguiapplication.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qicon.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qimage.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qinputdevice.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qinputmethod.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qkeysequence.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpaintdevice.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpainterpath.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpalette.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpen.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpixelformat.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpixmap.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpointingdevice.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qpolygon.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qregion.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qrgb.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qrgba64.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qscreen.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qscreen_platform.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qtgui-config.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qtguiexports.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qtguiglobal.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qtransform.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qvector2d.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qvectornd.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qwindowdefs.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtGui/qwindowdefs_win.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/QGraphicsProxyWidget
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/QGraphicsScene
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/QProgressBar
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qframe.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qgraphicsitem.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qgraphicslayoutitem.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qgraphicsproxywidget.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qgraphicsscene.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qgraphicswidget.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qprogressbar.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qsizepolicy.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qtwidgets-config.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qtwidgetsexports.h
  mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qtwidgetsglobal.h
+ mdp:C:/QtCreator/6.8.0/mingw_64/include/QtWidgets/qwidget.h
  mdp:C:/QtCreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/algorithm
  mdp:C:/QtCreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/array
  mdp:C:/QtCreator/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/atomic

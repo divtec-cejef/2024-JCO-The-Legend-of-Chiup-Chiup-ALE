@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['labelalignment_0',['labelAlignment',['https://doc.qt.io/qt-6/qformlayout.html#labelAlignment-prop',1,'QFormLayout']]],
+  ['labeltext_1',['labelText',['https://doc.qt.io/qt-6/qinputdialog.html#labelText-prop',1,'QInputDialog::labelText'],['https://doc.qt.io/qt-6/qprogressdialog.html#labelText-prop',1,'QProgressDialog::labelText']]],
+  ['lastcenterpoint_2',['lastCenterPoint',['https://doc.qt.io/qt-6/qpinchgesture.html#lastCenterPoint-prop',1,'QPinchGesture']]],
+  ['lastoffset_3',['lastOffset',['https://doc.qt.io/qt-6/qpangesture.html#lastOffset-prop',1,'QPanGesture']]],
+  ['lastposition_4',['lastPosition',['https://doc.qt.io/qt-6/qeventpoint.html#lastPosition-prop',1,'QEventPoint']]],
+  ['lastrotationangle_5',['lastRotationAngle',['https://doc.qt.io/qt-6/qpinchgesture.html#lastRotationAngle-prop',1,'QPinchGesture']]],
+  ['lastscalefactor_6',['lastScaleFactor',['https://doc.qt.io/qt-6/qpinchgesture.html#lastScaleFactor-prop',1,'QPinchGesture']]],
+  ['lasttimestamp_7',['lastTimestamp',['https://doc.qt.io/qt-6/qeventpoint.html#lastTimestamp-prop',1,'QEventPoint']]],
+  ['layout_8',['layout',['https://doc.qt.io/qt-6/qgraphicswidget.html#layout-prop',1,'QGraphicsWidget']]],
+  ['layoutdirection_9',['layoutDirection',['https://doc.qt.io/qt-6/qguiapplication.html#layoutDirection-prop',1,'QGuiApplication::layoutDirection'],['https://doc.qt.io/qt-6/qgraphicswidget.html#layoutDirection-prop',1,'QGraphicsWidget::layoutDirection'],['https://doc.qt.io/qt-6/qwidget.html#layoutDirection-prop',1,'QWidget::layoutDirection']]],
+  ['layoutenabled_10',['layoutEnabled',['https://doc.qt.io/qt-6/qtextdocument.html#layoutEnabled-prop',1,'QTextDocument']]],
+  ['layoutmode_11',['layoutMode',['https://doc.qt.io/qt-6/qlistview.html#layoutMode-prop',1,'QListView']]],
+  ['linewidth_12',['lineWidth',['https://doc.qt.io/qt-6/qframe.html#lineWidth-prop',1,'QFrame']]],
+  ['linewrapcolumnorwidth_13',['lineWrapColumnOrWidth',['https://doc.qt.io/qt-6/qtextedit.html#lineWrapColumnOrWidth-prop',1,'QTextEdit']]],
+  ['linewrapmode_14',['lineWrapMode',['https://doc.qt.io/qt-6/qplaintextedit.html#lineWrapMode-prop',1,'QPlainTextEdit::lineWrapMode'],['https://doc.qt.io/qt-6/qtextedit.html#lineWrapMode-prop',1,'QTextEdit::lineWrapMode']]],
+  ['loadhints_15',['loadHints',['https://doc.qt.io/qt-6/qlibrary.html#loadHints-prop',1,'QLibrary::loadHints'],['https://doc.qt.io/qt-6/qpluginloader.html#loadHints-prop',1,'QPluginLoader::loadHints']]],
+  ['locale_16',['locale',['https://doc.qt.io/qt-6/qinputmethod.html#locale-prop',1,'QInputMethod::locale'],['https://doc.qt.io/qt-6/qwidget.html#locale-prop',1,'QWidget::locale']]],
+  ['loggingmode_17',['loggingMode',['https://doc.qt.io/qt-6/qopengldebuglogger.html#loggingMode-prop',1,'QOpenGLDebugLogger']]],
+  ['logicaldotsperinch_18',['logicalDotsPerInch',['https://doc.qt.io/qt-6/qscreen.html#logicalDotsPerInch-prop',1,'QScreen']]],
+  ['logicaldotsperinchx_19',['logicalDotsPerInchX',['https://doc.qt.io/qt-6/qscreen.html#logicalDotsPerInchX-prop',1,'QScreen']]],
+  ['logicaldotsperinchy_20',['logicalDotsPerInchY',['https://doc.qt.io/qt-6/qscreen.html#logicalDotsPerInchY-prop',1,'QScreen']]],
+  ['loopcount_21',['loopCount',['https://doc.qt.io/qt-6/qabstractanimation.html#loopCount-prop',1,'QAbstractAnimation::loopCount'],['https://doc.qt.io/qt-6/qtimeline.html#loopCount-prop',1,'QTimeLine::loopCount']]]
+];

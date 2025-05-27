@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>2024-JCO-The-Legend-of-Chiup-Chiup-ALE:  Fichier source de elasticfollowertickhandler.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">2024-JCO-The-Legend-of-Chiup-Chiup-ALE<span id="projectnumber">&#160;0.1</span>
+   </div>
+   <div id="projectbrief">2024-JCO-The-Legend-of-Chiup-Chiup-ALE</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="doc-content">
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">elasticfollowertickhandler.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="elasticfollowertickhandler_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="elasticfollowertickhandler_8h.html">elasticfollowertickhandler.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="sprite_8h.html">sprite.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="elasticfollowertickhandler_8cpp.html#ab90ea8d4e03a6be6bc5df76e9bb82816">   11</a></span><span class="keyword">const</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="elasticfollowertickhandler_8cpp.html#ab90ea8d4e03a6be6bc5df76e9bb82816">ELASTIC_MAX_TENSION</a> = 1.0f;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span></div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_elastic_follower_tick_handler.html#acd87e0f1cfb869c1eb9d20136d07ba7a">   18</a></span><a class="code hl_function" href="class_elastic_follower_tick_handler.html#acd87e0f1cfb869c1eb9d20136d07ba7a">ElasticFollowerTickHandler::ElasticFollowerTickHandler</a>(<a class="code hl_class" href="class_sprite.html">Sprite</a> *pSpriteToFollow,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                                                       <span class="keywordtype">float</span> <a class="code hl_function" href="class_elastic_follower_tick_handler.html#ae8b45b561385909ad573fefb98176ac3">elasticity</a>,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                                                       <a class="code hl_class" href="class_sprite.html">Sprite</a> *pParentSprite) :</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_function" href="class_follower_tick_handler.html#a37e4986500116ae3dcc1e447ab46a9a6">FollowerTickHandler</a>(pSpriteToFollow, pParentSprite)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_function" href="class_elastic_follower_tick_handler.html#afea04d155ab4579566a1856ab4092aa8">setElasticity</a>(<a class="code hl_function" href="class_elastic_follower_tick_handler.html#ae8b45b561385909ad573fefb98176ac3">elasticity</a>);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_elastic_follower_tick_handler.html#a413b1b8b4bbaa47bf5fc228e790afa8c">   28</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_elastic_follower_tick_handler.html#a413b1b8b4bbaa47bf5fc228e790afa8c">ElasticFollowerTickHandler::init</a>()</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#a04cabe85fcecb53c31a63e427fa0dc4d">m_initialDistance</a> = <a class="code hl_function" href="class_elastic_follower_tick_handler.html#a7471dcb7b46db9bc6d5e156a2354ab0b">distanceToSpriteToFollow</a>();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span></div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_elastic_follower_tick_handler.html#a0c732a6bdeb9b13b4eef685b26a9f4a1">   34</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_elastic_follower_tick_handler.html#a0c732a6bdeb9b13b4eef685b26a9f4a1">ElasticFollowerTickHandler::tick</a>(<span class="keywordtype">long</span> <span class="keywordtype">long</span> elapsedTimeInMilliseconds)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    Q_UNUSED(elapsedTimeInMilliseconds);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    Q_ASSERT(<a class="code hl_variable" href="class_follower_tick_handler.html#a0d1d205a7a84af0c3e4d930bb94ba417">m_pSpriteToFollow</a>);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    Q_ASSERT(<a class="code hl_variable" href="class_sprite_tick_handler.html#a4d7b77faf3fc09ca63767f5cb1afcc90">m_pParentSprite</a>);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">int</span> currentDistance = <a class="code hl_function" href="class_elastic_follower_tick_handler.html#a7471dcb7b46db9bc6d5e156a2354ab0b">distanceToSpriteToFollow</a>();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment">// Si la distance entre les deux sprites dépasse la distance initiale, la tension</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// augment petit à petit, sinon elle diminue.</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">if</span> (currentDistance &gt; <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#a04cabe85fcecb53c31a63e427fa0dc4d">m_initialDistance</a>)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#ad5b21f8843b68ad8835c965cb9c347a8">m_elasticTension</a> += 0.1;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (currentDistance &lt; <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#a04cabe85fcecb53c31a63e427fa0dc4d">m_initialDistance</a>)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#ad5b21f8843b68ad8835c965cb9c347a8">m_elasticTension</a> -= 0.2;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#ad5b21f8843b68ad8835c965cb9c347a8">m_elasticTension</a> = 0;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#ad5b21f8843b68ad8835c965cb9c347a8">m_elasticTension</a> = qBound(0., <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#ad5b21f8843b68ad8835c965cb9c347a8">m_elasticTension</a>, <a class="code hl_variable" href="elasticfollowertickhandler_8cpp.html#ab90ea8d4e03a6be6bc5df76e9bb82816">ELASTIC_MAX_TENSION</a>);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment">// Réduit la distance entre ce sprite et le sprite cible en tenant compte de la tension sur</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// l&#39;élastique (plus elle est grande, plus le déplacement sera important) et l&#39;élasticité</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">// (plus elle est grande, moins le déplacement sera important)</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">float</span> moveDistance = qAbs(currentDistance - <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#a04cabe85fcecb53c31a63e427fa0dc4d">m_initialDistance</a>) * <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#ad5b21f8843b68ad8835c965cb9c347a8">m_elasticTension</a> / <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#a65d08875e09ac287a7775f60c71e0e59">m_elasticity</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">// Détermine la trajectoire et la distance à parcourir et calcul la coordonnée d&#39;arrivée.</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-6/qlinef.html">QLineF</a> lineToSprite = <a class="code hl_function" href="class_elastic_follower_tick_handler.html#af8ea201550dbd3ec92a4b3991115468c">lineToSpriteToFollow</a>();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-6/qpointf.html">QPointF</a> direction = lineToSprite.<a class="code hl_functionRef" href="https://doc.qt.io/qt-6/qlinef.html#unitVector">unitVector</a>().<a class="code hl_functionRef" href="https://doc.qt.io/qt-6/qlinef.html#p2">p2</a>() - lineToSprite.<a class="code hl_functionRef" href="https://doc.qt.io/qt-6/qlinef.html#unitVector">unitVector</a>().<a class="code hl_functionRef" href="https://doc.qt.io/qt-6/qlinef.html#p1">p1</a>();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-6/qpointf.html">QPointF</a> destPoint = direction * moveDistance;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_variable" href="class_sprite_tick_handler.html#a4d7b77faf3fc09ca63767f5cb1afcc90">m_pParentSprite</a>-&gt;moveBy(destPoint.<a class="code hl_functionRef" href="https://doc.qt.io/qt-6/qpointf.html#x">x</a>(), destPoint.<a class="code hl_functionRef" href="https://doc.qt.io/qt-6/qpointf.html#y">y</a>());</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_elastic_follower_tick_handler.html#ae8b45b561385909ad573fefb98176ac3">   67</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="class_elastic_follower_tick_handler.html#ae8b45b561385909ad573fefb98176ac3">ElasticFollowerTickHandler::elasticity</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#a65d08875e09ac287a7775f60c71e0e59">m_elasticity</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
+<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="class_elastic_follower_tick_handler.html#afea04d155ab4579566a1856ab4092aa8">   74</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_elastic_follower_tick_handler.html#afea04d155ab4579566a1856ab4092aa8">ElasticFollowerTickHandler::setElasticity</a>(<span class="keywordtype">float</span> newElasticity)</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>{</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_variable" href="class_elastic_follower_tick_handler.html#a65d08875e09ac287a7775f60c71e0e59">m_elasticity</a> = qBound(1.0F, newElasticity, 100.F);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="class_elastic_follower_tick_handler.html#af8ea201550dbd3ec92a4b3991115468c">   80</a></span><a class="code hl_classRef" href="https://doc.qt.io/qt-6/qlinef.html">QLineF</a> <a class="code hl_function" href="class_elastic_follower_tick_handler.html#af8ea201550dbd3ec92a4b3991115468c">ElasticFollowerTickHandler::lineToSpriteToFollow</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-6/qpointf.html">QPointF</a> posA = <a class="code hl_variable" href="class_sprite_tick_handler.html#a4d7b77faf3fc09ca63767f5cb1afcc90">m_pParentSprite</a>-&gt;pos();</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <a class="code hl_classRef" href="https://doc.qt.io/qt-6/qpointf.html">QPointF</a> posB = <a class="code hl_variable" href="class_follower_tick_handler.html#a0d1d205a7a84af0c3e4d930bb94ba417">m_pSpriteToFollow</a>-&gt;pos();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">return</span> <a class="code hl_classRef" href="https://doc.qt.io/qt-6/qlinef.html">QLineF</a>(posA, posB);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
+</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="class_elastic_follower_tick_handler.html#a7471dcb7b46db9bc6d5e156a2354ab0b">   88</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="class_elastic_follower_tick_handler.html#a7471dcb7b46db9bc6d5e156a2354ab0b">ElasticFollowerTickHandler::distanceToSpriteToFollow</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_elastic_follower_tick_handler.html#af8ea201550dbd3ec92a4b3991115468c">lineToSpriteToFollow</a>().<a class="code hl_functionRef" href="https://doc.qt.io/qt-6/qlinef.html#length">length</a>();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>}</div>
+</div>
+<div class="ttc" id="aclass_elastic_follower_tick_handler_html_a04cabe85fcecb53c31a63e427fa0dc4d"><div class="ttname"><a href="class_elastic_follower_tick_handler.html#a04cabe85fcecb53c31a63e427fa0dc4d">ElasticFollowerTickHandler::m_initialDistance</a></div><div class="ttdeci">int m_initialDistance</div><div class="ttdef"><b>Definition</b> <a href="elasticfollowertickhandler_8h_source.html#l00035">elasticfollowertickhandler.h:35</a></div></div>
+<div class="ttc" id="aclass_elastic_follower_tick_handler_html_a0c732a6bdeb9b13b4eef685b26a9f4a1"><div class="ttname"><a href="class_elastic_follower_tick_handler.html#a0c732a6bdeb9b13b4eef685b26a9f4a1">ElasticFollowerTickHandler::tick</a></div><div class="ttdeci">void tick(long long elapsedTimeInMilliseconds) override</div><div class="ttdoc">Cadence de déplacement.</div><div class="ttdef"><b>Definition</b> <a href="#l00034">elasticfollowertickhandler.cpp:34</a></div></div>
+<div class="ttc" id="aclass_elastic_follower_tick_handler_html_a413b1b8b4bbaa47bf5fc228e790afa8c"><div class="ttname"><a href="class_elastic_follower_tick_handler.html#a413b1b8b4bbaa47bf5fc228e790afa8c">ElasticFollowerTickHandler::init</a></div><div class="ttdeci">void init() override</div><div class="ttdef"><b>Definition</b> <a href="#l00028">elasticfollowertickhandler.cpp:28</a></div></div>
+<div class="ttc" id="aclass_elastic_follower_tick_handler_html_a65d08875e09ac287a7775f60c71e0e59"><div class="ttname"><a href="class_elastic_follower_tick_handler.html#a65d08875e09ac287a7775f60c71e0e59">ElasticFollowerTickHandler::m_elasticity</a></div><div class="ttdeci">float m_elasticity</div><div class="ttdef"><b>Definition</b> <a href="elasticfollowertickhandler_8h_source.html#l00037">elasticfollowertickhandler.h:37</a></div></div>
+<div class="ttc" id="aclass_elastic_follower_tick_handler_html_a7471dcb7b46db9bc6d5e156a2354ab0b"><div class="ttname"><a href="class_elastic_follower_tick_handler.html#a7471dcb7b46db9bc6d5e156a2354ab0b">ElasticFollowerTickHandler::distanceToSpriteToFollow</a></div><div class="ttdeci">float distanceToSpriteToFollow() const</div><div class="ttdef"><b>Definition</b> <a href="#l00088">elasticfollowertickhandler.cpp:88</a></div></div>
+<div class="ttc" id="aclass_elastic_follower_tick_handler_html_acd87e0f1cfb869c1eb9d20136d07ba7a"><div class="ttname"><a href="class_elastic_follower_tick_handler.html#acd87e0f1cfb869c1eb9d20136d07ba7a">ElasticFollowerTickHandler::ElasticFollowerTickHandler</a></div><div class="ttdeci">ElasticFollowerTickHandler(Sprite *pSpriteToFollow, float elasticity=5.F, Sprite *pParentSprite=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="#l00018">elasticfollowertickhandler.cpp:18</a></div></div>
+<div class="ttc" id="aclass_elastic_follower_tick_handler_html_ad5b21f8843b68ad8835c965cb9c347a8"><div class="ttname"><a href="class_elastic_follower_tick_handler.html#ad5b21f8843b68ad8835c965cb9c347a8">ElasticFollowerTickHandler::m_elasticTension</a></div><div class="ttdeci">float m_elasticTension</div><div class="ttdef"><b>Definition</b> <a href="elasticfollowertickhandler_8h_source.html#l00036">elasticfollowertickhandler.h:36</a></div></div>
+<div class="ttc" id="aclass_elastic_follower_tick_handler_html_ae8b45b561385909ad573fefb98176ac3"><div class="ttname"><a href="class_elastic_follower_tick_handler.html#ae8b45b561385909ad573fefb98176ac3">ElasticFollowerTickHandler::elasticity</a></div><div class="ttdeci">float elasticity() const</div><div class="ttdef"><b>Definition</b> <a href="#l00067">elasticfollowertickhandler.cpp:67</a></div></div>
+<div class="ttc" id="aclass_elastic_follower_tick_handler_html_af8ea201550dbd3ec92a4b3991115468c"><div class="ttname"><a href="class_elastic_follower_tick_handler.html#af8ea201550dbd3ec92a4b3991115468c">ElasticFollowerTickHandler::lineToSpriteToFollow</a></div><div class="ttdeci">QLineF lineToSpriteToFollow() const</div><div class="ttdef"><b>Definition</b> <a href="#l00080">elasticfollowertickhandler.cpp:80</a></div></div>
+<div class="ttc" id="aclass_elastic_follower_tick_handler_html_afea04d155ab4579566a1856ab4092aa8"><div class="ttname"><a href="class_elastic_follower_tick_handler.html#afea04d155ab4579566a1856ab4092aa8">ElasticFollowerTickHandler::setElasticity</a></div><div class="ttdeci">void setElasticity(float newElasticity)</div><div class="ttdef"><b>Definition</b> <a href="#l00074">elasticfollowertickhandler.cpp:74</a></div></div>
+<div class="ttc" id="aclass_follower_tick_handler_html_a0d1d205a7a84af0c3e4d930bb94ba417"><div class="ttname"><a href="class_follower_tick_handler.html#a0d1d205a7a84af0c3e4d930bb94ba417">FollowerTickHandler::m_pSpriteToFollow</a></div><div class="ttdeci">Sprite * m_pSpriteToFollow</div><div class="ttdef"><b>Definition</b> <a href="followertickhandler_8h_source.html#l00034">followertickhandler.h:34</a></div></div>
+<div class="ttc" id="aclass_follower_tick_handler_html_a37e4986500116ae3dcc1e447ab46a9a6"><div class="ttname"><a href="class_follower_tick_handler.html#a37e4986500116ae3dcc1e447ab46a9a6">FollowerTickHandler::FollowerTickHandler</a></div><div class="ttdeci">FollowerTickHandler(Sprite *pSpriteToFollow, Sprite *pParentSprite=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="followertickhandler_8cpp_source.html#l00013">followertickhandler.cpp:13</a></div></div>
+<div class="ttc" id="aclass_sprite_html"><div class="ttname"><a href="class_sprite.html">Sprite</a></div><div class="ttdoc">Classe qui représente un élément d&#39;animation graphique 2D.</div><div class="ttdef"><b>Definition</b> <a href="sprite_8h_source.html#l00161">sprite.h:162</a></div></div>
+<div class="ttc" id="aclass_sprite_tick_handler_html_a4d7b77faf3fc09ca63767f5cb1afcc90"><div class="ttname"><a href="class_sprite_tick_handler.html#a4d7b77faf3fc09ca63767f5cb1afcc90">SpriteTickHandler::m_pParentSprite</a></div><div class="ttdeci">Sprite * m_pParentSprite</div><div class="ttdef"><b>Definition</b> <a href="spritetickhandler_8h_source.html#l00040">spritetickhandler.h:40</a></div></div>
+<div class="ttc" id="aelasticfollowertickhandler_8cpp_html_ab90ea8d4e03a6be6bc5df76e9bb82816"><div class="ttname"><a href="elasticfollowertickhandler_8cpp.html#ab90ea8d4e03a6be6bc5df76e9bb82816">ELASTIC_MAX_TENSION</a></div><div class="ttdeci">const float ELASTIC_MAX_TENSION</div><div class="ttdef"><b>Definition</b> <a href="#l00011">elasticfollowertickhandler.cpp:11</a></div></div>
+<div class="ttc" id="aelasticfollowertickhandler_8h_html"><div class="ttname"><a href="elasticfollowertickhandler_8h.html">elasticfollowertickhandler.h</a></div><div class="ttdoc">Déclaration de la classe FollowerTickHandler.</div></div>
+<div class="ttc" id="aqlinef_html"><div class="ttname"><a href="https://doc.qt.io/qt-6/qlinef.html">QLineF</a></div></div>
+<div class="ttc" id="aqlinef_html_length"><div class="ttname"><a href="https://doc.qt.io/qt-6/qlinef.html#length">QLineF::length</a></div><div class="ttdeci">qreal length() const const</div></div>
+<div class="ttc" id="aqlinef_html_p1"><div class="ttname"><a href="https://doc.qt.io/qt-6/qlinef.html#p1">QLineF::p1</a></div><div class="ttdeci">QPointF p1() const const</div></div>
+<div class="ttc" id="aqlinef_html_p2"><div class="ttname"><a href="https://doc.qt.io/qt-6/qlinef.html#p2">QLineF::p2</a></div><div class="ttdeci">QPointF p2() const const</div></div>
+<div class="ttc" id="aqlinef_html_unitVector"><div class="ttname"><a href="https://doc.qt.io/qt-6/qlinef.html#unitVector">QLineF::unitVector</a></div><div class="ttdeci">QLineF unitVector() const const</div></div>
+<div class="ttc" id="aqpointf_html"><div class="ttname"><a href="https://doc.qt.io/qt-6/qpointf.html">QPointF</a></div></div>
+<div class="ttc" id="aqpointf_html_x"><div class="ttname"><a href="https://doc.qt.io/qt-6/qpointf.html#x">QPointF::x</a></div><div class="ttdeci">qreal x() const const</div></div>
+<div class="ttc" id="aqpointf_html_y"><div class="ttname"><a href="https://doc.qt.io/qt-6/qpointf.html#y">QPointF::y</a></div><div class="ttdeci">qreal y() const const</div></div>
+<div class="ttc" id="asprite_8h_html"><div class="ttname"><a href="sprite_8h.html">sprite.h</a></div><div class="ttdoc">Déclaration de la classe Sprite.</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Mercredi 14 Mai 2025 15:44:44 pour 2024-JCO-The-Legend-of-Chiup-Chiup-ALE par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>
